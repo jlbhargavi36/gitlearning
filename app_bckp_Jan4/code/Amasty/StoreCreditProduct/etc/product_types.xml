@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/product_types.xsd">
+    <type name="amstore_credit_product"
+          label="Store Credit by Amasty"
+          modelInstance="Amasty\StoreCreditProduct\Model\Product\Type\StoreCreditProductType"
+          composite="false"
+          indexPriority="50"
+          sortOrder="100"
+          isQty="true">
+        <priceModel instance="Amasty\StoreCreditProduct\Model\Product\Price"/>
+    </type>
+</config>

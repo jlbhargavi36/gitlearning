@@ -1,0 +1,56 @@
+<div class="amscproduct-prices-wrapper">
+    <!-- ko if: showPriceSelector() -->
+    <div class="amscproduct-field-container">
+        <span class="amscproduct-title">
+            <span data-bind="i18n: 'Credit Value in'"></span>
+            <span data-bind="text: currencyCode"></span>
+        </span>
+        <div class="amscproduct-radio-prices">
+            <!-- ko foreach: prices -->
+            <label class="amscproduct-label-block -price"
+                   data-amscproduct-js="price"
+                   data-bind="css: {'-active': $parent.currentPrice() == $data.value}">
+                <span data-bind="text: $data.price"></span>
+                <input type="radio"
+                       name="amstore_credit_amount"
+                       class="amscproduct-radio"
+                       afterRender="$parent.setCreditsPriceValue.bind($parent, $element.name)"
+                       data-bind="
+                           value: $data.value,
+                           event: {change: $parent.changeProductPrice.bind($parent)},
+                           checked: $parent.currentPrice,
+                           checkedValue: $data.value,
+                           css: {'required-entry': !$parent.customAmount()}
+                       "/>
+            </label>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: isOpenAmount -->
+    <div class="amscproduct-field-container">
+        <span class="amscproduct-title" data-bind="i18n: 'Other amount:'"></span>
+        <div class="amscproduct-field-block -double">
+            <input type="number"
+                   class="amscproduct-field"
+                   data-bind="
+                        attr: {placeholder: getAmountRange()},
+                        value: customAmount,
+                        event:{change: initCustomValidate.bind($data, customAmount)}"/>
+            <button class="amscproduct-button"
+                    data-bind="click: applyCustomAmount.bind($data, customAmount, event)">
+                <span data-bind="i18n: 'Add'"></span>
+            </button>
+        </div>
+        <!-- ko ifnot: isValueValid -->
+        <span class="amscproduct-warning" data-bind="i18n: 'Please, enter valid value'"></span>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>
+<!-- ko if: prices().length > 1 || isOpenAmount -->
+<input type="text"
+       class="amscproduct-input -hidden"
+       name="amstore_credit_amount_custom"
+       data-bind="value: customAmount, css: {'required-entry': !currentPrice()}"/>
+<!-- /ko -->

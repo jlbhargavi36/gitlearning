@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    	
+    	<referenceContainer name="cart.summary">
+	    	<container name="cart.summary.before" label="Cart Summery Before" htmlTag="div" htmlClass="summay-top-items" before="-">
+	    		<block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.top" template="Magento_Checkout::cart/methods.phtml">	              
+	                <container name="top.checkout.cart.methods" as="methods" label="Payment Methods beore Checkout Button">
+                        <block class="Magento\Checkout\Block\Onepage\Link" name="checkout.cart.methods.onepage.top" template="Magento_Checkout::onepage/link.phtml" />
+                        <block class="Magento\Checkout\Block\QuoteShortcutButtons" name="checkout.cart.shortcut.top" />
+                    </container>
+	            </block>
+	    	</container>
+	    </referenceContainer>
+        <move element="checkout.cart.shortcut.buttons" destination="checkout.cart.methods" after="checkout.cart.methods.onepage.bottom"/>
+        <move element="checkout.cart.coupon" destination="cart.summary.before" after="-"/>
+        <!-- <referenceContainer name="cart.discount" remove="true" /> -->
+        <referenceContainer name="checkout.cart.crosssell" remove="true" /> 
+               <!-- estimate shipping block removed -->
+        <!-- <referenceBlock name="checkout.cart.shipping" display="false"/> -->  
+        <!-- <referenceBlock name="checkout.cart.shipping">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-summary" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="componentDisabled" xsi:type="boolean">true</item>
+                            </item>
+
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock> -->      
+    </body>
+</page>

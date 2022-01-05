@@ -1,0 +1,25 @@
+"Please specify a store credit amount.","Please specify a store credit amount."
+"Store Credit min amount is %1","Store Credit min amount is %1"
+"Store Credit max amount is %1","Store Credit max amount is %1"
+"Amount should be specified or Open Amount should be allowed","Amount should be specified or Open Amount should be allowed"
+"Duplicate amount found.","Duplicate amount found."
+"Min and Max values of open amount can't be equal.","Min and Max values of open amount can't be equal."
+"Min value of open amount must be lower then Max value.","Min value of open amount must be lower then Max value."
+"An error has occurred while preparing Store Credit Product.","An error has occurred while preparing Store Credit Product."
+Amounts,Amounts
+Website,Website
+Amount,Amount
+"All Websites [%1]","All Websites [%1]"
+"%1 [%2]","%1 [%2]"
+Availability:,Availability:
+"Out of stock","Out of stock"
+"Other Amount...","Other Amount..."
+"Custom Amount in %1","Custom Amount in %1"
+From,From
+To,To
+"Credit Value in","Credit Value in"
+"Other amount:","Other amount:"
+Add,Add
+"Please, enter valid value","Please, enter valid value"
+"Min: ","Min: "
+"Max: ","Max: "

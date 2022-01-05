@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- <referenceContainer name="content">
+            <block class="Magento\Sales\Block\Widget\Guest\Form" name="guest.form" template="Magento_Sales::guest/form.phtml"/>
+        </referenceContainer> -->
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Order Information</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Template" name="sidebar.main.guest_nav" template="Magento_Theme::html/collapsible.phtml" before="-">
+                <arguments>
+                    <argument name="block_css" xsi:type="string">account-nav</argument>
+                </arguments>
+                <block class="Magento\Customer\Block\Account\Navigation" name="customer_guest_navigation" before="-">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">nav items</argument>
+                    </arguments>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-guest-navigation-account-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Overview </argument>
+                            <argument name="sortOrder" xsi:type="number">170</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\Delimiter" name="customer-guest-navigation-delimiter-1" template="Magento_Customer::account/navigation-delimiter.phtml">
+                        <arguments>
+                            <argument name="sortOrder" xsi:type="number">160</argument>
+                        </arguments>
+                    </block>      
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-guest-navigation-form-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Order Tracking</argument>
+                            <argument name="path" xsi:type="string">sales/guest/form</argument>
+                            <argument name="sortOrder" xsi:type="number">20</argument>
+                        </arguments>
+                    </block>
+		    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-account-navigation-orders-link">
+                	<arguments>
+		            <argument name="path" xsi:type="string">sales/order/history</argument>
+		            <argument name="label" xsi:type="string" translate="true">My Orders</argument>
+		            <argument name="sortOrder" xsi:type="number">10</argument>
+		        </arguments>
+		    </block>
+                </block>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+    </body>
+</page>

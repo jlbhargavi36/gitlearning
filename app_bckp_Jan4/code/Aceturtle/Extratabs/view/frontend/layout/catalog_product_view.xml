@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<body>
+    <referenceBlock name="product.info.description">
+        <action method="setTitle">
+            <argument name="title" xsi:type="string">Description</argument>
+            <argument name="sort_order" xsi:type="string">50</argument>
+        </action>
+    </referenceBlock>
+    <referenceBlock name="product.info.details">
+        <block class="Magento\Catalog\Block\Product\View" name="story.tab" template="Aceturtle_Extratabs::custom_tab.phtml" group="detailed_info" >
+        <arguments>
+            <argument translate="true" name="title" xsi:type="string">Story</argument>
+            <argument name="sort_order" xsi:type="string">80</argument>
+        </arguments>
+    </block>
+    <block class="Magento\Catalog\Block\Product\View" name="styling.tab" template="Aceturtle_Extratabs::custom_tab.phtml" group="detailed_info" >
+        <arguments>
+            <argument translate="true" name="title" xsi:type="string">styling</argument>
+            <argument name="sort_order" xsi:type="string">100</argument>
+        </arguments>
+    </block>
+    </referenceBlock>
+    <referenceBlock name="product.attributes">
+    <arguments>
+        <argument translate="true" name="title" xsi:type="string">Details</argument>
+        <argument name="sort_order" xsi:type="string">0</argument>
+    </arguments>
+</referenceBlock>
+</body>
+</page>

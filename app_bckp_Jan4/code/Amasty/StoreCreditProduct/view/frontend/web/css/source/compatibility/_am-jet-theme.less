@@ -1,0 +1,58 @@
+//
+// Compatibility with Amasty Jet Theme
+// _____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amasty-jet-theme {
+        .amscproduct-field-block .amscproduct-field {
+            border: @amtheme__border;
+            border-radius: @amtheme__border-radius__s;
+        }
+
+        .amscproduct-field-block .amscproduct-button {
+            & {
+                padding-left: 15px;
+                border: none;
+                background: @amtheme__background-primary__color;
+                color: @amtheme__link__color;
+                letter-spacing: .03em;
+                transition: color .3s ease-out;
+            }
+
+            &:hover {
+                color: #27046f;
+            }
+        }
+
+        .amscproduct-label-block.-price,
+        .amscproduct-label-block.-upload {
+            & {
+                border: @amtheme__border;
+                background-color: @amtheme__background-primary__color;
+                color: #4a4948;
+                transition: color .3s ease-out, background-color .3s ease-out, border .3s ease-out;
+            }
+
+            &.-active,
+            &:hover {
+                border: @amtheme__border__width solid @color-black;
+                background-color: @amtheme__background-tertiary__color;
+                color: @amtheme__text-primary__color;
+            }
+        }
+
+        .amscproduct-label-block.-price {
+            padding: 10px;
+            border: @amtheme__border;
+            border-radius: @amtheme__border-radius__s;
+        }
+
+        .amscproduct-label-block {
+            display: flex;
+        }
+    }
+}

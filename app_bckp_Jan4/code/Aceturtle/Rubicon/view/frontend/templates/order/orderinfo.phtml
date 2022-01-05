@@ -1,0 +1,58 @@
+ <?php
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$currencysymbol = $_objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currencyCode = $currencysymbol->getStore()->getCurrentCurrencyCode();
+
+$orderData = $block->getOrderData(); 
+$orderData = array_values(array_unique($orderData , SORT_REGULAR));
+
+
+
+foreach ($orderData as $orderItem) {
+        $productRepository = $_objectManager->get('\Magento\Catalog\Model\ProductRepository')->get($orderItem['sku']);
+        $_product = $_objectManager->get('Magento\Catalog\Model\Product')->load($productRepository->getId());
+        $imageHelper  = $_objectManager->get('\Magento\Catalog\Helper\Image');
+        $image_url = $imageHelper->init($_product, 'product_page_image_medium')->setImageFile($_product->getImage())->resize(480, 600)->getUrl();
+
+        $name = $orderItem['name'];
+
+        //echo $orderItem['sku']."--".$productRepository->getId()."--".$image_url;
+
+        // $sku = $orderItem['sku'];
+        // $imageUrl = $block->getProductImageUrl($sku);
+
+        $color = !empty($orderItem['color']) ? $orderItem['color'] : '';
+        $size = !empty($orderItem['size']) ? $orderItem['size'] : '';
+        $qtyOrdered = $orderItem['qty_ordered'];
+        $price = $orderItem['price'];
+        // $status = $orderItem['is_cancellable'];
+        $lastmileStatus = !empty($orderItem['order_status']) ? $orderItem['order_status'] : '';
+        ?>
+
+ <div class="orderhistory-detail">
+ <div class="order-image">
+            <img  style="" src="<?php echo $image_url; ?>"> 
+ </div>
+ <div class="order-detail">
+            <?php
+            echo '<p>'.$name.'</p>';
+            echo '<p>'.'Color :'.'<span>'.$color.'</span>'.'</p>';
+            echo '<p>'.'Size :'.'<span>'.$size.'</span>'.'</p>';
+            echo '<p>'.'Qty :'.'<span>'.$qtyOrdered.'</span>'.'</p>';
+            echo '<p>'.$currencyCode." ".$price.'</p>';
+
+
+            ?>
+ </div>
+ </div>
+    <div class="order-status">
+        <?php
+        echo $this->getLayout()->createBlock("Aceturtle\Rubicon\Block\Status")->setOrderItem($orderItem)->setTemplate("Aceturtle_Rubicon::order/status.phtml")->toHtml();
+        ?>
+    </div>
+    <div class="line-hr"></div>
+     <?php
+} ?>
+
+
+

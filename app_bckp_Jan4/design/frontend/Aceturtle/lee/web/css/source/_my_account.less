@@ -1,0 +1,280 @@
+
+//
+//  Variables
+//  _____________________________________________
+
+
+// @_password-default: @color-gray-light01;
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+	.fotorama__thumb-border {
+		border: 2px solid #000 !important;
+	}
+	.orderDetailsSection .order-status {
+		width: 100%;
+	}
+	li.progtrckr-done, li.progtrckr-todo {
+		height: auto !important;
+	}
+	ul.header.links li.nav.item {
+		display: none !important;
+	}
+	.swatch-option.text { 
+		font-size: 15px !important;
+		line-height: 4px !important;
+		padding: 13px 11px !important;
+		margin-top: 2px;
+		margin-left: 2px;
+	}
+	.cms-new-arrivals .products.grid.products-grid .product-item .product-item-photo:hover .product-image-container {
+		 
+		visibility: visible  !important; 
+	}
+	//overview
+	.customMenuDashboard{
+		.box-actions {
+			margin-top: 5% !important;
+		}
+	}
+	//order view
+	.account.sales-order-view {
+		.page-title-wrapper > span,.page-title-wrapper .order-date {
+			display: none;
+		}
+		.order-actions-toolbar{
+			
+			.actions {
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+				a{
+					color: black !important;
+				}
+				.action.print{
+					display: none !important;
+				}
+			}	
+		}
+		#maincontent .columns .column.main .orderDetailPage {
+			width: 100% !important;
+		}
+	}
+	// order history
+	a.action.print {
+		display: none;
+	}
+	.orderhistory-detail div.order-status {
+		@media (max-width: 480px) {
+			border: 0;
+		}
+	}
+	.table-wrapper.orders-history {
+		width: 100% !important;
+		.col.id {
+			line-height: 3;
+		}
+		.My-account-Item-viewBtn.orderHistoryHeadingBtn {
+			width: 100%;
+			margin: 10px;
+			text-align: right;
+			button:hover {
+				color: white !important;
+			}
+		}
+		.my-order-listingpage{ 
+				width: 98% !important; 
+ 				.orderhistory-detail{
+					box-shadow: 0px 0.5px 2.5px 2px gainsboro !important;
+				}
+		}
+		.order-status{
+			border: 0;
+			#placeorder-status span {
+				border: 2px solid gainsboro;
+				font-weight: bold !important;
+				cursor: pointer;
+				color: black !important;
+				padding: 8px 13px !important;
+			}
+		}
+		.order-detail p {
+			margin: 10px;
+		}
+	}
+	.customer-account-index .block-reviews-dashboard{
+		display: none !important;
+	}
+	#opc-shipping_method #checkout-shipping-method-load{
+		display: none !important;
+	}
+	.checkout-shipping-method .step-title {
+		display: none;
+	}
+	.account{
+		#block-category-brand-container {
+		   display: none;
+	   }	
+    }
+	@media only screen and (max-width: 767px){
+		.wishlist-index-index .product-item-info, .products-grid.wishlist .product-item-photo, .products-grid.wishlist .product-image-container {
+			width: 100% !important;
+			margin: 0px !important;
+			max-width: 100%;
+		}
+		.wishlist-index-index .product-item-info{
+			.product-item .field.qty{
+				display: block !important;
+			}
+			.product-image-photo{
+				width: 100%;
+			}
+			.box-tocart{
+				width: 100%;
+				margin: 0 !important;
+				fieldset.fieldset{
+					margin: 0 !important;
+				}
+				fieldset.fieldset > div {
+					width: 100%;
+					float: left;
+				}
+				button.action.tocart.primary {
+					color: #fff !important;
+					padding: 10px 15px !important;
+				}
+			}
+			.product-item-inner{
+				.product-item-actions{
+					margin: 0 auto;
+					width: 100%;
+					a.action.edit {
+						margin-right: 10px !important;
+					}
+				}
+			}
+		}
+		.products-grid.wishlist .product-item-name, .products-grid.wishlist .product-item-description, .products-grid.wishlist .product-item .price-box, .products-grid.wishlist .product-item-tooltip {
+			margin-left: 0 !important;
+		}
+	}
+
+	.wishlist-index-index{
+		.actions-toolbar{
+			.primary {
+				display: grid !important;
+				margin-right: 20px;
+				width: 30% !important;
+			}
+		}
+		.products-grid {
+			.product-item {
+				width: 32% !important;
+				padding-right: 10px;
+				text-align: center;
+				box-sizing: border-box;
+				@media (max-width: 480px){
+					width: 100% !important;
+					padding: 5px 0;
+				}
+				.product-item-info{
+
+					&:hover{
+						.aceturtle-bt-quickview{
+							display:none !important;
+						}
+						.actions-primary button{
+							color: #fff !important;
+							background: black !important;
+							width: 100% !important;
+						}
+					}
+				}
+			}
+		}
+
+		.actions-toolbar button.action {
+		    background: transparent;
+		    border: 1px solid #000 !important;
+		    font-size: 11px !important;
+		    padding: 7px !important;
+		    color: #000 !important;
+		}	
+	}
+	.cancelHistorySection,.returnHistorySection {
+		 
+		.orderhistory-detail {
+			width: 30%;
+			border: 1px solid gainsboro;
+			margin: 5% 9px 0;
+			text-align: center;
+			float: left;
+			@media (max-width: 480px){
+				width: 100%;
+			}
+			.order-image{
+				img {
+					height: 229px;
+					width: 100%;
+					border-bottom: 1px solid gainsboro;
+					padding: 20px;
+					@media (max-width: 767px){
+						height: 100%;
+					}
+				}
+				
+			}.order-detail {
+				text-align: left;
+				padding: 4%;
+			}
+		}
+	}
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+	
+	#product-attribute-specs-table tr {
+		display: flex;
+	}
+	.cms-new-arrivals li.item.product.product-item {
+		padding: 0 8px !important;
+		width: calc((100% - 4%) / 4) !important;
+	}
+
+}
+
+// mobile
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr {
+ 		border-bottom: 1px solid gainsboro;
+		padding: 7px 0;
+	}
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td[data-th]:before, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th[data-th]:before {
+		padding-right: 10.5px;
+		content: attr(data-th) ': ';
+		display: inline-block;
+ 		color: #7e818c !important;
+		width: 50%;
+		font-size: 12px;
+		font-weight: 500;
+	}
+}
+
+@media only screen and (min-width: 768px){
+	.products-grid.wishlist .product-item .fieldset .field.qty, .products-grid.wishlist .product-item .fieldset .product-item-actions{
+		display: block !important;
+		button.action.tocart.primary{
+			padding: 10px 15px;
+		}
+	}
+}

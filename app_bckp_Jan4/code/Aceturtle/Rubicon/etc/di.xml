@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Magento\Sales\Block\Order\Info" type="Aceturtle\Rubicon\Block\Order\Info" />
+	<type name="Magento\Quote\Model\ShippingMethodManagement">
+		<plugin name="pincode_check" type="Aceturtle\Rubicon\Plugin\ShippingMethodManagement"></plugin>
+	</type>
+</config>

@@ -1,0 +1,107 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+    $isCustomerLoggedIn = $customerSession->isLoggedIn();
+?>
+
+<div data-block="minicart" class="minicart-wrapper">
+     <!-- custom Model drop down for my account DESKTOP start -->
+     <div class="dropdown-main-account">
+    <div class="dropdown-main-account-label"><a href="#"><span></span></a> </div>
+        <?php if(!$isCustomerLoggedIn){ ?>
+            <ul class="sub-dropdown-account">
+                <li><a href="<?php echo $this->getUrl('customer/account/login'); ?>"> Log in / Register</a> </li>
+                <li><a href="<?php echo $this->getUrl('sales/order/history'); ?>"> My Orders </a></li>
+            </ul>
+        <?php }?>
+        <?php if($isCustomerLoggedIn){ ?>
+            <script>
+                    require(["jquery",], function($){
+                        $( document ).ready(function() {
+                            $('.link.wishlist').addClass('login_customers');
+                        });
+                    });    
+            </script>
+            <ul class="sub-dropdown-account">
+                <?php
+                    $context = $objectManager->get('Magento\Framework\App\Http\Context');  
+                ?>
+                <li><a href="<?php echo $this->getUrl('customer/account/'); ?>">My Account <i class="fa fa-cog" aria-hidden="true" style="font-size: 15px;margin-left: 4px;"></i>
+                </a></li>
+                <li><a href="<?php echo $this->getUrl('sales/order/history'); ?>"> My Orders</a> </li>
+                <li><a href="<?php echo $this->getUrl('customer/account/logout'); ?>">Signout <i class="fa fa-long-arrow-right" aria-hidden="true"    style="font-size: 15px;margin-left: 4px;"></i>
+                </a></li>
+            </ul>
+        <?php } ?>
+    </div>
+    <!-- custom Model drop down for my account end -->
+    <a class="action showcart" title="<?= $block->escapeHtml(__('My Cart')) ?>" href="<?= $block->escapeUrl($block->getShoppingCartUrl()) ?>"
+       data-bind="scope: 'minicart_content'">
+        <span class="text"><?= $block->escapeHtml(__('My Cart')) ?></span>
+        <span class="counter qty empty"
+              data-bind="css: { empty: !!getCartParam('summary_count') == false && !isLoading() },
+               blockLoader: isLoading">
+            <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+            <span class="counter-label">
+            <!-- ko if: getCartParam('summary_count') -->
+                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+            <!-- /ko -->
+            </span>
+        </span>
+    </a>
+    <a class="delivery_icon" href="<?php echo $this->getUrl('sales/guest/form'); ?>">
+        <span class=""><i class="fa fa-truck" aria-hidden="true"></i></span>
+    </a>
+    <?php if ($block->getIsNeedToDisplaySideBar()):?>
+        <div class="block block-minicart"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+                "appendTo":"[data-block=minicart]",
+                "triggerTarget":".showcart",
+                "timeout": "2000",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'>
+            <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <?= $block->getChildHtml('minicart.addons') ?>
+        </div>
+    <?php else: ?>
+        <?php $scriptString = <<<script
+            require(['jquery'], function ($) {
+                $('a.action.showcart').click(function() {
+                    $(document.body).trigger('processStart');
+                });
+            });
+script;
+        ?>
+        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
+    <?php endif ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], 'window.checkout = ' .
+     /* @noEscape */ $block->getSerializedConfig(), false); ?>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?= $block->escapeJs(
+                $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+            ) ?>"
+        }
+    }
+    </script>
+</div>

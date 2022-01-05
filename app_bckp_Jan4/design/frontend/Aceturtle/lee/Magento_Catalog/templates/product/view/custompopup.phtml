@@ -1,0 +1,40 @@
+<div class="prices-bnpl">
+  <!-- Afterpay Content Asset -->
+  <div class="afterpay-wrapper" data-afterpay-get-url="https://leejeans.com.au/getafterpaypricebreakdown/">
+    <div class="afterpay">
+      <div>
+        <div class="product-afterpay-message null">
+          <span class="afterpay-label" title="Afterpay Terms &amp; Conditions">
+            <img class="afterpay-image" src="https://leejeans.com.au/on/demandware.static/Sites-au-leejeans-Site/-/default/dwd0de276b/images/afterpay-logo.svg" alt="Afterpay">
+            <span class="afterpay-text">4 payments of $42.49
+              <a href="/afterpay-terms/" class="afterpay-link"><span class="sr-only">Learn more</span></a>
+            </span>
+          </span>
+          <div style="display: none"><div id="afterpayInfo"><?= $block->getChildHtml('afterpay-terms-modal', true) ?></div></div>
+        </div>
+      </div>
+    </div>
+
+   
+    <script>
+      require(['jquery', 'Magento_Ui/js/modal/modal'], function($, modal){     
+        var options = {
+            type: 'popup', // popup or slide
+            responsive: true, // true = on smaller screens the modal slides in from the right
+            innerScroll: false,
+            modalId: 'afterpayInfoses',
+            modalClass: 'afterpayInfo',
+            buttons: []
+        };
+        var popup = modal(options, $('#afterpayInfo'));            
+        $(".afterpay").length && $(document).on("click", ".afterpay .afterpay-link", (function(e){
+            e.preventDefault(); 
+            $('#afterpayInfo').modal('openModal');
+        }));
+
+            
+      })
+    </script>
+  </div>
+</div>
+

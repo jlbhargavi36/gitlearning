@@ -1,0 +1,12 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Controller\Account\CreatePost" type="Aceturtle\CustomerAccountChanges\Controller\Account\CreatePostOverwritten" />
+   <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="AceturtleCustomerAccountChangesAccountCreatePost" type="Aceturtle\CustomerAccountChanges\Plugin\Customer\Account\CreatePost" />
+    </type>
+
+    <type name="Magento\Customer\Controller\Account\EditPost">
+        <plugin name="AceturtleCustomerAccountChangesAccountEditPost" type="Aceturtle\CustomerAccountChanges\Plugin\Customer\Account\EditPost" />
+    </type>
+    <!--<preference for="Magento\Customer\Controller\Account\Login" type="Aceturtle\CustomerAccountChanges\Controller\Account\LoginOverwritten" />-->
+
+</config>

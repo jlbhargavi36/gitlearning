@@ -1,0 +1,91 @@
+<?php include ($block->getTemplateFile('Aceturtle_Rubicon::order/breadcrum.phtml'));
+$orderHelper = $this->helper('Aceturtle\Rubicon\Helper\Order');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+    if ($customerSession->isLoggedIn()) {
+   $customer_email = $customerSession->getCustomer()->getEmail();
+    $order_collection = $objectManager->create('Magento\Sales\Model\Order')->getCollection()
+    ->addAttributeToFilter('customer_email', $customer_email)
+    ->addAttributeToSelect('increment_id');
+$imageHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$placeholderImageUrl = $imageHelper->getDefaultPlaceholderUrl('image');
+
+    if($order_collection){
+      
+      $oidcount = count($order_collection);
+
+      ?>
+      <div class="cancelHistorySection">
+        <?php
+    $recordCount = 0;
+    foreach($order_collection as $order_collections){
+    $cancelorders = $this->helper('Aceturtle\Rubicon\Helper\Order')->getCancleorderdata($block->escapeHtml($order_collections['increment_id'])); 
+    $orderData = json_decode($cancelorders, true);
+    if (!empty($orderData)) {
+	$recordCount++;
+    $data = json_decode($cancelorders);
+    $arraycount = count($data);
+    $i = 0;
+    for ($i = 0; $i < $arraycount; $i++) {
+	$imagePath = $orderHelper->getProductImageUrl($data[$i]->sku);
+    ?>
+<div class="orderhistory-detail">
+    <div class="order-image">
+        <?php if (!empty($imagePath)) {?>
+            <img  style="" src="<?php echo $imagePath; ?>" style="width:200px; height:200px;">
+        <?php } else {?>
+            <img  style="" src="<?php echo $placeholderImageUrl; ?>" style="width:200px; height:200px;"> 
+        <?php } ?>
+    </div>
+    <div class="orderHistoryDetailWrapper"> 
+    <div class="order-detail"> 
+        <?php
+        $date =  $data[$i]->cancel_date;
+        $createDate = new DateTime($date);
+        $canceldate = $createDate->format('d-m-y');
+
+
+        $itemname = preg_replace('\'%20\'', ' ', $data[$i]->order_item->name);
+              
+            echo '<p class="productName">'.$itemname.'</p>';
+            if (!empty($data[$i]->order_item->color)) {
+                echo '<p class="productInfo">'.'Color: '.'<span>'.$data[$i]->order_item->color.'</span>'.'</p>';
+            }
+            if (!empty($data[$i]->order_item->size)) {
+                echo '<p class="productInfo">'.'Size: '.'<span>'.$data[$i]->order_item->size.'</span>'.'</p>';
+            }
+	    if (!empty($data[$i]->order_item->color)) {
+		echo '<p class="productInfo">'.'Color: '.'<span>'.$data[$i]->order_item->color.'</span>'.'</p>';
+            }
+	    echo '<p class="productPrice">'.'MRP: '.'<span>'.$data[$i]->order_item->pricing_details->mrp.'</span>'.'</p>';
+	    if($data[$i]->order_item->pricing_details->price!=$data[$i]->order_item->pricing_details->mrp){
+	    echo '<p class="productPrice">'.'Price: '.'<span>'.$data[$i]->order_item->pricing_details->price.'</span>'.'</p>';
+	    }
+	    if(!empty($data[$i]->order_item->pricing_details->item_seller_promotional_discount)){
+		echo '<p class="productPrice">'.'Discounted amount: '.'<span>'.$data[$i]->order_item->pricing_details->item_seller_promotional_discount.'</span>'.'</p>';
+	    }
+	    
+	    if(!empty($data[$i]->order_item->pricing_details->item_grand_total)){
+		echo '<p class="productPrice">'.'Net Amount: '.'<span>'.$data[$i]->order_item->pricing_details->item_grand_total.'</span>'.'</p>';
+	    }
+	    
+            
+            echo '<p class="productInfo">'.'quantity: '.'<span>'.$data[$i]->order_item->qty_ordered.'</span>'.'</p>';
+	    echo '<p class="productInfo">'.'SKU: '.'<span>'.$data[$i]->order_item->sku.'</span>'.'</p>';
+            echo '<p class="productInfo">'.'Order No: '.'<span>'.$data[$i]->order_no.'</span>'.'</p>';
+            echo '<p class="productInfo">'.'Cancellation date: '.'<span>'.$canceldate.'</span>'.'</p>';  
+        ?>
+    </div>
+    </div>
+</div>
+<?php
+       }
+   }
+}
+	if($recordCount == 0){
+		echo "<div class='message info empty'><div>  No Recode found </div></div>";
+	}
+   } 
+   }
+?>
+</div>

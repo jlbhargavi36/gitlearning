@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head>
+<!-- <css src="Aceturtle_Rubicon::css/custom-sales-view.css"/> -->
+</head>
+    <body>
+        <referenceBlock name="sales.order.view">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Aceturtle_Rubicon::order/view.phtml</argument>
+            </action>
+        </referenceBlock>
+		<referenceBlock name="order_items">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Aceturtle_Rubicon::order/items.phtml</argument>
+            </action>
+        </referenceBlock>
+	
+	<referenceBlock name="order_totals">
+    <action method="setTemplate">
+        <argument name="template" xsi:type="string">Aceturtle_Rubicon::order/totals.phtml</argument>
+    </action>
+</referenceBlock>
+<referenceContainer name="page.main.title">
+<block class="Aceturtle\Rubicon\Block\Status" name="rubicon.order.status" template="Aceturtle_Rubicon::order/status.phtml"/>
+</referenceContainer>
+	
+    </body>
+</page>

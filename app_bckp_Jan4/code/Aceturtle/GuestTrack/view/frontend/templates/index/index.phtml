@@ -1,0 +1,94 @@
+<?php 
+$block->getOrders();
+?>
+<?php $_orders = $block->getOrders(); ?>
+<?php $orderHelper = $this->helper('Aceturtle\Rubicon\Helper\Order'); ?>
+<?php
+// $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+// $currencysymbol = $_objectManager->get('Magento\Store\Model\StoreManagerInterface');
+// $currencyCode = $currencysymbol->getStore()->getCurrentCurrencyCode();
+$currencyCode = $orderHelper->getCurrencycode();
+$shipmentCount = 0;
+
+$imageHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$placeholderImageUrl = $imageHelper->getDefaultPlaceholderUrl('image');
+?>
+<?php if ($_orders && count($_orders)): ?>
+    <div class="table-wrapper orders-history">
+        <div class="data table table-order-items history" id="my-orders-table">
+            <?php foreach ($_orders as $_order): 
+            ?>
+                <?php $_shipments = $orderHelper->getORubiconShipmentData($_order->getRealOrderId()); 
+               //print_r($_shipments);die();
+
+                ?>
+                <?php //$_shipments = $orderHelper->getORubiconShipmentData(123456); ?>
+                <?php if(!empty($_shipments)) { $shipmentCount++; ?>
+                    <?php foreach ($_shipments as $shipment) { ?>
+                        <div class = "my-order-listingpage">
+                            <div class="orderhistory-heading">
+                                <?php /**<div class="col id"><?= $_order->getRealOrderId() ?></div> **/ ?>
+                                <div class="col id"><? // php echo $shipment['shipment_no']; ?><?//php echo $shipment['shipment_no']; ?><p class="ordno"><span>Order No:</span>
+                                <span class="orderHistoryHeadingOrderNo"><?php echo $_order->getRealOrderId(); ?></span></p></div>
+                                <div class="My-account-Item-viewBtn orderHistoryHeadingBtn">
+                                    <button type="button" onclick="location.href='<?php echo $block->getViewUrl($_order)."sid/".$shipment['_id']; ?>'"> Order Details </button>
+                                </div>
+                            </div>
+                            <?php if(!empty($shipment['order_items'])) { ?>
+                                <?php foreach ($shipment['order_items'] as $items) { ?>
+                                    <div class="orderhistory-detail">
+                                         <div class="order-image">
+                                                <img src="<?php if(empty($items['image_link1'])) { echo $placeholderImageUrl; } else { echo $items['image_link1']; } ?>"> 
+                                         </div>
+                                         <div class="orderHistoryDetailWrapper">
+                                            <div class="order-detail">
+                                                <?php
+                                                if(!empty($items['name'])) { 
+						$itemname = preg_replace('\'%20\'', ' ', $items['name']);
+						 echo '<p class="productName">'.$itemname.'</p>';  
+						}
+                                                if(!empty($items['color'])) { echo '<p class="productInfo">'.'Color :'.'<span>'.$items['color'].'</span>'.'</p>'; }
+                                                if(!empty($items['size'])) { echo '<p class="productInfo">'.'Size :'.'<span>'.$items['size'].'</span>'.'</p>'; }
+                                                if(!empty($items['qty_ordered'])) { echo '<p class="productInfo">'.'Qty :'.'<span>'.$items['qty_ordered'].'</span>'.'</p>'; }
+                                                if(!empty($items['pricing_details']['grand_total'])) { echo '<p class="productPrice">'.'Total: '.'₹ '.$items['pricing_details']['grand_total'].'</p>'; }
+                                                if(!empty($items['pricing_details']['grand_total'])) { echo  '<p class="productPrice">'.'MRP: '.'₹ '.$items['pricing_details']['mrp'].'</p>'; }
+                                                ?>
+                                            </div>
+                                            <div class="order-status" id="<?php echo 'st-'.$shipment['_id']; ?>">
+
+                                                <?php 
+
+                                                $returnstatus = $this->helper('Aceturtle\Rubicon\Helper\Order')->OrderReturnResponse($shipment['shipment_no'],$items['sku']);
+                                                 if (empty($returnstatus)) {
+                                                echo $this->getLayout()->createBlock("Aceturtle\Rubicon\Block\Status")->setShipmentNo($shipment['_id'])->setShipmentStatus($shipment['status_name'])->setStatusType('shipment')->setTemplate("Aceturtle_Rubicon::order/status.phtml")->toHtml();
+                                                 }
+
+                                               
+                                                
+                                                if (!empty($returnstatus)) {
+                                                    $rtstatus = $returnstatus[0]->return_status;
+                                                    echo $this->getLayout()->createBlock("Aceturtle\Rubicon\Block\Status")->setShipmentNo($items['sku'])->setShipmentStatus($rtstatus)->setStatusType('return')->setTemplate("Aceturtle_Rubicon::order/status.phtml")->toHtml();
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <div class="My-account-Item-viewBtn">
+                                            <button type="button" onclick="location.href='<?php echo $block->getViewUrl($_order)."sid/".$shipment['_id']; ?>'"> > </button>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            <?php } ?>
+                            
+                            <!-- <div class="line-hr"></div> -->
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php if ($shipmentCount != 0 && $block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?= /* @escapeNotVerified */ __('Please enter valid order Id or Mobile Number  to track your order. The shared details doesn’t match..') ?></span></div>
+<?php endif ?>

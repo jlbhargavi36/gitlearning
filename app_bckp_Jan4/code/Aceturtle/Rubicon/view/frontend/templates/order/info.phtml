@@ -1,0 +1,200 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php /** @var $block \Magento\Sales\Block\Order\Info */ ?>
+<?php
+//error_reporting(E_ALL & ~E_NOTICE);
+$_order = $block->getOrder(); 
+
+$orderHelper = $this->helper('Aceturtle\Rubicon\Helper\Order');
+$params = $block->getRequest()->getParams();
+$currencyCode = $orderHelper->getCurrencycode();
+$_shipments = $orderHelper->getORubiconShipmentData($_order->getRealOrderId());
+//$_shipments = $orderHelper->getORubiconShipmentData(123456);
+if(isset($params['sid'])){
+$shipmentId = $params['sid'];
+}else{
+$shipmentId ="";
+}
+$shipmentInfo = [];
+foreach ($_shipments as $shipment) {
+    if($shipment['_id'] == $shipmentId && isset($shipmentId)) {
+       array_push($shipmentInfo,$shipment);
+       break;
+    }elseif ($shipmentId == "") {
+        array_push($shipmentInfo, $shipment);
+    }
+}
+if(empty($shipmentInfo[0]['order_no'])){
+
+?>
+<div class="orderDetailPage">
+<div class="orderInfoSection">
+
+<div class="data table table-order-items" id="my-orders-table" summary="Items Ordered">
+Please enter valid order Id and Mobile Number to track your order. The shared details doesn’t match.
+</div>
+
+</div>
+</div>
+
+<?php 
+}else{
+
+$imageHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$placeholderImageUrl = $imageHelper->getDefaultPlaceholderUrl('image');
+$billingaddress = $orderHelper->getBillingAddress();
+$order = $orderHelper->getOrder($_order->getId());
+$paymenttype = $order->getPayment()->getMethodInstance()->getCode();
+$customerObj = $orderHelper->getLoggedCustomer();
+$emailId = $shipmentInfo[0]['customer_details']['email'];
+$additionaladdresslist = $customerObj->getAddresses();
+if(!$customerObj->getId()){ 
+//$orderHelper->addressFormatte($_order->getBillingAddress());
+//$orderHelper->addressFormatte($_order->getBillingAddress());
+}
+?>
+<div class="orderDetailPage">
+<div class="orderInfoSection">
+     <?php
+        //$now = new DateTime($shipmentInfo[0]['order_date']);
+        //$sgtTime = $now->format('d-m-Y H:i:s');
+        //$date = "2019-06-05T15:26:12.000Z";
+        $date = $shipmentInfo[0]['created_at'];
+        $tz = new DateTimeZone('Asia/Kolkata');
+        $date = new DateTime($date);
+        $date->setTimezone($tz);
+        $sgtTime = $date->format('d-m-y H:i:s');
+        ?>
+        <p><span class="orderInfoName">Order ID : </span><span class="orderInfoValue"><?php echo $shipmentInfo[0]['order_no'];?></span></p>
+        <p><span class="orderInfoName">Ordered On : </span><span class="orderInfoValue"><?php echo $sgtTime; ?></span></p>
+        <p><span class="orderInfoName">Payment Mode : </span><span class="orderInfoValue"><?php echo $shipmentInfo[0]['payment_method'];?></span></p>
+</div>
+<div class="oderPersonalInfoSection">
+   <p class="oderPersonalInfo"><span>Name: </span><span> <?php echo $shipmentInfo[0]['customer_details']['name'];?></span></p>
+<?php //if($customerObj->getId() && $customerObj->getEmail() == $emailId){ ?>
+   <p class="oderPersonalInfo"><span>Contact No: </span><span> <?php  echo $orderHelper->ordertext($shipmentInfo[0]['customer_details']['phone'],'phone');?></span></p>
+<?php if($customerObj->getId()){ ?>   
+<p class="oderPersonalInfo"><span>Email: </span><span> <?php  echo $orderHelper->ordertext($shipmentInfo[0]['customer_details']['email'],'email'); ?></span></p>
+<?php } ?>
+</div>
+<?php
+//$shipmentInfo[0]['shipping_address']['email'];
+//$_order->getShippingAddress()->getEmail();
+if($customerObj->getId()){ ?>
+<div class="orderAddressSection">
+    <div class="paymentAddress address">
+        <h5>Payment Address</h5>
+        <address><?= /* @escapeNotVerified */ $block->getFormattedAddress($_order->getBillingAddress()) ?></address>
+    </div>
+    <div class="shippingAddress address">
+        <h5>Shipping Address</h5>
+        <address><?= /* @escapeNotVerified */ $block->getFormattedAddress($_order->getShippingAddress()) ?></address>
+    </div>
+</div>
+
+<?php } ?>
+ <!-- Information or the deatils of the order that is Palced start-->
+<div class="orderDetailsSection">
+    <p class="shipmentInfo"><span>Shipment:</span>
+        <span class="shipmentInfoValue"><?php echo $shipmentInfo[0]['shipment_no'];?></span>
+	<?php if($shipmentInfo[0]['awb_no']!=""){ ?>
+	 <a href="https://www.ekartlogistics.com/track/<?php echo $shipmentInfo[0]['awb_no'];?>" target="_blank" ><span class="shipmentInfoValue"> Track your Order</span> </a>
+	<?php } ?>
+    
+    </p>
+
+
+    <div class="data table table-order-items" id="my-orders-table" summary="Items Ordered">
+    <?php if(!empty($shipmentInfo[0]['order_items'])) { ?>
+    <?php foreach ($shipmentInfo[0]['order_items'] as $items) { 
+	$imagePath = $orderHelper->getProductImageUrl($items['sku']);
+?>
+        <div class="orderhistory-detail">
+            <div class="order-image">
+                <img src="<?php if(empty($imagePath)) { echo $placeholderImageUrl; } else { echo $imagePath; } ?>">
+            </div>
+            <?php /** =========== Item Information Start ============ **/ ?>
+            <div class="orderHistoryDetailWrapper">
+                <div class="order-detail">
+                    <?php if(!empty($items['name'])) {
+            			$itemname = preg_replace('\'%20\'', ' ', $items['name']);
+            			echo "<p class='Product-name'>".$itemname."</p>";
+            		} ?>
+                    <?php //if(!empty($items['color'])) { echo "<p>Color : ".$items['color']."</p>"; } ?>
+                    <?php if(!empty($items['size'])) { echo '<p class="productInfo">'.'Size :'.'<span>'.$items['size'].'</span>'.'</p>'; } ?>
+                    <?php if(!empty($items['qty_ordered'])) { echo '<p class="productInfo">'.'Qty :'.'<span>'.$items['qty_ordered'].'</span>'.'</p>'; } ?>
+                    <?php if(!empty($items['pricing_details']['grand_total'])) { echo '<p class="productPrice">'.'Total: '.'₹ '.'<span>'.$items['pricing_details']['grand_total'].'</span>'.'</p>'; } ?>
+                    <?php if(!empty($items['pricing_details']['grand_total'])) { echo  '<p class="productPrice">'.'MRP: '.'₹ '.'<span>'.$items['pricing_details']['mrp'].'</span>'.'</p>'; } ?>
+                </div>
+                
+                <?php /** ================ Item Information End ======================= **/ ?>
+                <?php 
+                $returnstatus = $this->helper('Aceturtle\Rubicon\Helper\Order')->OrderReturnResponse($shipmentInfo[0]['shipment_no'],$items['sku']);
+                if (empty($returnstatus)) {
+                ?>
+                <?php /* ?>
+                <div class="order-status" id="<?php echo 'st-'.$shipmentId; ?>">
+                    <?php echo $this->getLayout()->createBlock("Aceturtle\Rubicon\Block\Status")->setShipmentNo($shipmentId)->setShipmentStatus($shipmentInfo[0]['status_name'])->setStatusType('shipment')->setTemplate("Aceturtle_Rubicon::order/status.phtml")->toHtml();
+                    ?>
+                </div>
+                <?php */ ?>
+
+                 <!-- status progress bar start -->
+                 <?php echo $this->getLayout()->createBlock("Aceturtle\Rubicon\Block\Status")->setShipmentInfo($shipmentInfo[0])->setShipmentNo($shipmentId)->setShipmentStatus($shipmentInfo[0]['status_name'])->setStatusType('shipment')->setTemplate("Aceturtle_Rubicon::order/status-progress-bar.phtml")->toHtml();
+                ?>
+                <!-- status progress bar end -->
+                <?php }
+                if (!empty($returnstatus)) {
+                    $rtstatus = $returnstatus[0]->return_status;
+                    ?>
+                    <div class="order-status" id="<?php echo 'st-'.$shipmentId; ?>">
+                    <?php echo $this->getLayout()->createBlock("Aceturtle\Rubicon\Block\Status")->setShipmentNo($items['sku'])->setShipmentStatus($rtstatus)->setStatusType('return')->setTemplate("Aceturtle_Rubicon::order/status.phtml")->toHtml();
+                    ?>
+                    </div>
+                <?php } ?>
+
+            </div>
+            <!-- cancel button start -->
+	<?php 
+	if($customerObj->getId()){ ?> 
+            <?php 
+                $orderedStatus = ['CREATED','Created','Ordered','Created','To Be Allocated','Allocated','To Be Accepted'];
+                if(in_array($shipmentInfo[0]['status_name'], $orderedStatus)){ ?>
+                <div class="orderCancelSection">
+                    <a class = "<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'cancel';?> openModelPopup">
+                        <span>Cancel</span>
+                    </a>
+                </div>
+            <?php  }?>
+               <?php  if (empty($returnstatus)) {?>
+                <?php $deliveredStatus = ['DELIVERED','Delivered','Handover Complete','Customer Picked'];
+            if(in_array($shipmentInfo[0]['status_name'], $deliveredStatus)) { ?>
+                <div class="orderReturnSection" style="display:block !important;">
+                    <a class = "<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'return';?> openModelPopup"> 
+                        <span>Return</span>
+                    </a>
+                </div>
+              <?php }
+               } 
+              ?>
+	<?php }  ?>
+            <!-- cancel button End -->
+        </div>
+        <?php  include ($block->getTemplateFile('Aceturtle_Rubicon::order/cancel.phtml')); ?>
+         <?php include ($block->getTemplateFile('Aceturtle_Rubicon::order/returnform.phtml')); ?>
+        <hr>
+    <?php } } ?>
+    </div> 
+ <!-- Information or the deatils of the order that is Palced End-->
+
+
+</div>
+</div>
+
+<?php } ?>

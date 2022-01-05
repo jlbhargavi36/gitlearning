@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_width" xsi:type="number">102</argument>
+                <argument name="logo_height" xsi:type="number">48</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+
+        <referenceBlock name="authorization-link-login">
+            <arguments>
+                <argument name="title" xsi:type="string" translate="true">My Account</argument>
+            </arguments>
+        </referenceBlock> 
+
+        <referenceBlock name="wish-list-link">
+            <arguments>
+                <argument name="title" xsi:type="string" translate="true"></argument>
+            </arguments>
+        </referenceBlock>
+      
+        
+        
+        <referenceContainer name="footer-container">
+            <block class="Magento\Cms\Block\Block" name="footer-newsletter-subcribe" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-newsletter-subcribe</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="footer-container">
+            <block class="Magento\Cms\Block\Block" name="footer-copyright" after="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-copyright</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="footer">
+            <block class="Magento\Cms\Block\Block" name="static-footer-links" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">static-footer-links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <move element="logo" destination="header.panel.wrapper" before="-"/>
+        <referenceBlock name="currency" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="footer_links" remove="true"/>
+        <move element="current-promotions-link" destination="header.links" before="-"/>
+        <move element="wish-list-link" destination="header.links" after="top.search"/>
+        <referenceBlock name="authorization-link-login" remove="true"/>
+         <referenceBlock name="form.subscribe" remove="true"/>
+         <referenceBlock name="newsletter_head_components" remove="true"/>
+         <referenceBlock name="register-link" remove="true"/>
+         <move element="minicart" destination="header.links" after="-" />
+         <referenceBlock name="footer_links" remove="true"/>
+         <referenceBlock name="header" remove="true"/>
+         <move element="top.search" destination="header.links" before="-" />
+    </body>
+</page>

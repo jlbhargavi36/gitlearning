@@ -1,0 +1,74 @@
+<div class="popUpOverlay"></div>
+    <div  id="<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'return-request';?>" class="orderReturn" style="display: none;">
+        <div class="pop-inner">                             
+            <form method="post" class="return-infod" id="return-request-<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']); ?>" data-mage-init='{"validation": {}}'>
+                <input type="hidden" class="form-control" name="shipment_no" id="<?php echo $shipmentInfo[0]['shipment_no'];?>" value= "<?php echo $shipmentInfo[0]['shipment_no'];?>"/>
+                        <input type="hidden" class="form-control" name="itemid" id="<?php echo $items['item_no']; ?>" value= "<?php echo $items['item_no']; ?>"/>
+                        <input type="hidden" class="form-control" name="itemqty" value= "<?php echo $items['qty_ordered']; ?>"/>
+                        <input type="hidden" class="form-control" name="sku" value= "<?php echo $items['sku']; ?>"/>
+                        <input type="hidden" class="form-control" name="firstname" id="<?php echo $billingaddress['firstname']?>" value= "<?php echo $billingaddress['firstname']?>"/>
+                        <input type="hidden" class="form-control" name="lastname" id="<?php echo $billingaddress['lastname']?>" value= "<?php echo $billingaddress['lastname']?>"/>
+                        <input type="hidden" class="form-control" name="street" id="<?php echo $billingaddress['street']?>" value= "<?php echo $billingaddress['street']?>"/>
+                        <input type="hidden" class="form-control" name="city" id="<?php echo $billingaddress['city']?>" value= "<?php echo $billingaddress['city']?>"/>
+                        <input type="hidden" class="form-control" name="region" id="<?php echo $billingaddress['region']?>" value= "<?php echo $billingaddress['region']?>"/>
+                        <input type="hidden" class="form-control" name="postcode" id="<?php echo $billingaddress['postcode']?>" value= "<?php echo $billingaddress['postcode']?>"/>
+                        <input type="hidden" class="form-control" name="telephone" id="<?php echo $billingaddress['telephone']?>" value= "<?php echo $billingaddress['telephone']?>"/>
+                        <input type="hidden" class="form-control" name="payment" id="<?php echo $paymenttype?>" value= "<?php echo $paymenttype; ?>"/>
+                        <select name="reason" id="cancellationReason" value ="" class="return-reasion required-entry" style="width: 100%;margin-top:20px" required>
+                            <option value="">Choose Reason</option>
+                            <option value="Product Not Required Anymore">Product Not Required Anymore</option>
+                            <option value="Ordered By Mistake">Ordered By Mistake</option>
+                            <option value="Want To Change Style/Color">Want To Change Style/Color</option>
+                            <option value="Size Does Not Fit- Too Small">Size Does Not Fit- Too Small</option>
+                            <option value="Size Does Not Fit- Too Big">Size Does Not Fit- Too Big</option>
+                        </select>   
+                        <textarea rows="4" cols="50" name="comment" class="comments" id="remarks" placeholder="Additional comments" style="resize:none;margin:20px 0px"></textarea> 
+                        <div class="cancel-PopupBtn">
+                            <button type="submit" class="popupBtn">CONFIRM</button>
+                            <button type="button" class="popupBtn PopupBtnClose" id="<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'closeform'?>">CLOSE</button>
+                        </div>
+                </form>                            
+            </div>
+    </div>
+                        
+<script type="text/javascript">
+    require(['jquery'], function (jQuery) {
+        jQuery(document).ready(function () {
+            jQuery(".<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'return';?>").click(function() {
+            jQuery("#<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'return-request';?>").show();
+        });
+            jQuery("#return-request-<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']); ?>").submit(function(e){
+                console.log("Return form submited");
+                var retunorderSku =  jQuery("#return-request-<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']); ?>").validation('isValid'); //validates form and returns boolean
+                if(retunorderSku){
+                    jQuery.ajax({
+                        url:"<?php echo $block->getBaseUrl().'Rubicon/Index/returnorder' ?>",
+                        type: "POST",
+                        async: false,
+                        data: jQuery(this).serialize(),
+                        dataType: 'html',
+                            success: function(response){
+                                // var result = response.result;
+                                // if (result == true) {
+                                    jQuery('.orderReturn').hide();
+                                    jQuery('.popUpOverlay').hide();
+                                    console.log('inside IF as  restit is true')
+                                // } 
+                            }
+                    });
+                    location.reload();
+                }
+                return false; 
+            });
+        });
+        // Pop up to close on click of Close Button
+         jQuery('.PopupBtnClose').click(function(){
+            jQuery('.orderReturn').hide();
+            jQuery('.popUpOverlay').hide();
+        });
+        // Over lay to show when click on cancel Button
+        jQuery('.openModelPopup').click(function(){
+            jQuery('.popUpOverlay').show();
+        });
+    });
+</script>

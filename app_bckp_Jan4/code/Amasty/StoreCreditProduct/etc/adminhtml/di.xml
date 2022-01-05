@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="amStoreCreditProductPrices" xsi:type="array">
+                    <item name="class"
+                          xsi:type="string">Amasty\StoreCreditProduct\Ui\DataProvider\Product\Form\Modifier\Price
+                    </item>
+                    <item name="sortOrder" xsi:type="number">90</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!--delete old Amounts from product if there are not new-->
+    <type name="Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper">
+        <plugin name="Amasty_StoreCreditProduct::clearOldAmounts"
+                type="Amasty\StoreCreditProduct\Plugin\Catalog\Controller\Adminhtml\Product\Initialization\Helper\ClearOldAmounts"
+        />
+    </type>
+</config>

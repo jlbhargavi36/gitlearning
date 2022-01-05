@@ -1,0 +1,410 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Form\Edit $block */
+?>
+<?php include ($block->getTemplateFile('Aceturtle_Rubicon::order/breadcrum.phtml')); ?>
+<?php
+$helpergroup = $this->helper('Aceturtle\General\Helper\Data');
+$enableOTPVerfication = $helpergroup->getGeneralConfig('enable_otp_varification');
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerFactory = $objectManager->
+get('\Magento\Customer\Model\CustomerFactory')->create();
+$customerId = $block->escapeHtmlAttr($block->getCustomer()->getId());
+$customer = $customerFactory->load($customerId);
+$mobile = $customer['mobile_no'];
+$dob = $customer['custom_dob'];
+$anniversary = $customer['anniversary_date'];
+?>
+<form class="form form-edit-account myAccountForm myAccountEdit" action="<?= $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>" autocomplete="off">
+    <fieldset class="fieldset info">
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="legend"><span><?= $block->escapeHtml(__('Your Personal Details')) ?></span></legend><br>
+        <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getCustomer())->toHtml() ?>
+        <div class="field mobile required">
+            <label class="label" for="mobile"><span><?= $block->escapeHtml(__('Mobile')) ?></span></label>
+                    <div class="controls CustomControlInput">
+                    <input name="mobile_no" id="mobile_no" type="tel" pattern='(7|8|9)\d{9}' maxlength="10" class="input-text customPhoneNumberValidationMethod"  title="<?= $block->escapeHtmlAttr(__('Numbers')) ?>"
+                         value = '<?php echo $mobile; ?>' data-validate="{required:true}">
+			<div generated="true" class="verifymsgreq mage-error" style="display:none;"> Please <a href="javascript:void(0);" class="verfyToggle">Click  here </a> to Verify your new mobile number* </div>
+                    </div>
+		   
+             
+        </div>
+	<!--  -->
+	<div class="field required verifyotp" style="display:none;">
+	<div generated="true" class="message success" style="display:none;"> OTP sent Successfully  </div>
+        <label for="username" class="label"><span><?php /* @escapeNotVerified */
+                echo __('OTP Verfication') ?></span></label>
+	        <div class="control">
+	            <input type="text" name="otp" id="otp"
+	                   maxlength="10"
+	                   title="<?php /* @escapeNotVerified */
+	                   echo __('otp') ?>"
+	                   class="input-text"
+	                   data-validate="{'maxlength':10, required:true, 'otp':true}">  <span class="verfyToggle button"> Resend OTP </span>
+		<input type="hidden" name="mobileverified" value="1" /> 
+
+	        </div>
+    	</div>
+	<!--  -->
+        <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+        <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+        <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+       
+        <?php if ($_dob->isEnabled()): ?>
+            <?= $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+        <?php endif ?>
+
+       <!-- <div class="field dob required">
+         <label class="label" for="dob"><span><?= $block->escapeHtml(__('Date of Birth')) ?></span></label>
+                    <div class="controls CustomControlInput">
+                        <input name="custom_dob" type="text" id="datepicker" placeholder="Date Of Birth*" class="input-text" data-validate="{required:false}" readonly="readonly" value = '<?php echo $dob; ?>'>
+                    </div>
+         </div>
+
+        <div class="field Anniversary required">
+         <label class="label" for="anniversary"><span><?= $block->escapeHtml(__('Anniversary')) ?></span></label>
+                    <div class="controls CustomControlInput">
+                        <input name="anniversary_date" type="text" placeholder="Date Of Anniversary" id="datepickerAniversary" class="input-text" data-validate="{required:false}" readonly="readonly" value = '<?php echo $anniversary; ?>'>
+                    </div>
+         </div>
+ -->
+        <?php if ($_taxvat->isEnabled()): ?>
+            <?= $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
+        <?php endif ?>
+        <?php if ($_gender->isEnabled()): ?>
+            <?= $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
+        <?php endif ?>
+    </fieldset>
+    <fieldset class="fieldset password" data-container="change-email-password">
+        <legend class="legend"><span data-title="change-email-password"><?= $block->escapeHtml(__('Change Email and Password')) ?></span></legend><br>
+        <div class="field email required" data-container="change-email">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="email" name="email" id="email" autocomplete="email" data-input="change-email" value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" class="input-text" data-validate="{required:true, 'validate-email':true}" />
+            </div>
+        </div>
+        <div class="field password current required">
+            <label class="label" for="current-password"><span><?= $block->escapeHtml(__('Current Password')) ?></span></label>
+            <div class="control">
+                <input type="password" class="input-text" name="current_password" id="current-password" data-input="current-password" autocomplete="off" />
+            </div>
+        </div>
+        <div class="field new password required" data-container="new-password">
+            <label class="label" for="password"><span><?= $block->escapeHtml(__('New Password')) ?></span></label>
+            <div class="control">
+                <input type="password" class="input-text" name="password" id="password"
+                    data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                    data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                    data-input="new-password"
+                    data-validate="{required:true, 'validate-customer-password':true}"
+                    autocomplete="off" />
+                <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                    <div id="password-strength-meter" class="password-strength-meter">
+                        <?= $block->escapeHtml(__('Password Strength')) ?>:
+                        <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                            <?= $block->escapeHtml(__('No Password')) ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field confirm password required" data-container="confirm-password">
+            <label class="label" for="password-confirmation"><span><?= $block->escapeHtml(__('Confirm New Password')) ?></span></label>
+            <div class="control">
+                <input type="password" class="input-text" name="password_confirmation" id="password-confirmation"
+                    data-input="confirm-password"
+                    autocomplete="off" />
+            </div>
+        </div>
+    </fieldset>
+    <?= $block->getChildHtml('form_additional_info') ?>
+    <div class="actions-toolbar customBCBtn customBCBtnEditPage">
+        <div class="primary">
+            <button type="submit" class="action save primary custContinueBtn" title="<?= $block->escapeHtmlAttr(__('Update')) ?>"><span><?= $block->escapeHtml(__('Update')) ?></span></button>
+        </div>
+        <div class="secondary">
+            <a class="action back custBackBtn" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </div>
+</form>
+<script>
+    require([
+        "jquery",
+        "mage/mage",
+        "mage/calendar"
+    ], function($){
+        var dataForm = $('#form-validate');
+        var ignore = <?= /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+        
+        dataForm.mage('validation', {
+        <?php if ($_dob->isEnabled()): ?>
+            errorPlacement: function(error, element) {
+                if (element.prop('id').search('full') !== -1) {
+                    var dobElement = $(element).parents('.customer-dob'),
+                        errorClass = error.prop('class');
+                    error.insertAfter(element.parent());
+                    dobElement.find('.validate-custom').addClass(errorClass)
+                        .after('<div class="' + errorClass + '"></div>');
+                }
+                else {
+                    error.insertAfter(element);
+                }
+            },
+            ignore: ':hidden:not(' + ignore + ')'
+        <?php else: ?>
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+        <?php endif ?>
+        });
+        // datePicker for dob and aniversary
+        $('#datepicker').datepicker({
+            prevText: 'Previous', prevStatus: '',
+            prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: '',
+            nextText: 'Next', nextStatus: '',
+            nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: '',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1950\u003A2120',
+            showMonthAfterYear: false,
+            dateFormat:'d/m/yy',
+            maxDate: new Date()
+        });
+        $('#datepickerAniversary').datepicker({
+            prevText: 'Previous', prevStatus: '',
+            nextText: 'Next', nextStatus: '',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1950\u003A2120',
+            showMonthAfterYear: false,
+            dateFormat:'d/m/yy',
+            maxDate: new Date()
+        });
+
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "[data-role=change-email], [data-role=change-password]": {
+            "changeEmailPassword": {
+                "titleChangeEmail": "<?= $block->escapeJs($block->escapeHtml(__('Change Email'))) ?>",
+                "titleChangePassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Password'))) ?>",
+                "titleChangeEmailAndPassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Email and Password'))) ?>"
+            }
+        },
+        "[data-container=new-password]": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-edit-account"
+            }
+        }
+    }
+</script>
+
+
+<!--script>
+    requirejs([
+        'jquery',
+        'jquery/ui',
+        'jquery/validate',
+        'mage/translate',
+        'mage/mage',
+    ], function ($) {
+        $.validator.addMethod(
+            'otp',
+            function (value) {
+ 		return window.v;
+  },
+            $.mage.__('Please enter a valid OTP.')
+        );
+
+jQuery('.verfyToggle').on('click', function() {
+var mobileNo = $('#mobile_no').val();
+ console.log(mobileNo);
+$('.verifyotp').show();
+$('.verifymsg').hide();
+$.ajax({
+               url: '<?php echo $this->getUrl('customer_changes/account/sendotpregistration') ?>',
+               method: 'POST',
+               data: {
+                   mobile_no: mobileNo
+               },
+               success: function (data) {
+                   $('#send_otp').hide();
+                   $('#resend_otp').show();
+                   $('#mobile_login').show();
+                   $('#otp_password').show();
+               var error = jQuery('.message-error').html();  
+		   setTimeout(function(){ 
+			var error = jQuery('.message-error').html();
+			jQuery('.mobileOTP').show();
+		    if(error !=null){
+			var errMsg = error.replace(/<[^>]*>?/gm, '');
+			if(errMsg.trim() == 'You are not registered with us. Please sign up'){
+			jQuery('.mobileOTP').hide();
+			jQuery('.mobileLogin').prop('disabled', true);
+			}
+		    } }, 1000);	
+               }
+});
+});
+
+//function getOTP(otp){
+jQuery('#otp').on('keyup', function() {
+var otp = $('#otp').val();
+console.log(otp);
+                        jQuery.ajax({
+                        url: '<?php echo $block->getBaseUrl().'customer_changes/account/otpverification'?>',
+                        type: "POST",
+                        data: {otp:otp,page:'signin'},
+                        dataType: 'html',
+                            success: function(response){
+                                    var getdata =JSON.parse(response);
+					if(getdata.code == '200'){
+				  	window.v = true;
+					}else{
+					window.v = false;
+					}
+					console.log('after return');
+                            }
+                        });
+   });
+//}
+
+
+
+
+    });
+
+
+
+</script-->
+<?php 
+if($enableOTPVerfication==1){
+?>
+<script>
+    requirejs([
+        'jquery',
+        'jquery/ui',
+        'jquery/validate',
+        'mage/translate',
+        'mage/mage',
+    ], function ($) {
+        $.validator.addMethod(
+            'otp',
+            function (value) {
+ 		return window.v;
+  },
+            $.mage.__('Invalid OTP.Please try again.')
+        );
+
+jQuery('.verfyToggle').on('click', function() {
+var mobileNo = $('#mobile_no').val();
+ console.log(mobileNo);
+$('.verifyotp').show();
+$('.verifymsg').hide();
+var formKey = jQuery.mage.cookies.get('form_key');
+$.ajax({
+               url: '<?php echo $this->getUrl('customer_changes/account/sendotpregistration') ?>',
+               method: 'POST',
+               data: {
+                   mobile_no: mobileNo,
+		   form_key :formKey
+               },
+               success: function (data) {
+                   $('#send_otp').hide();
+                   $('#resend_otp').show();
+                   $('#mobile_login').show();
+                   $('#otp_password').show();
+               var error = jQuery('.message-error').html();
+		     var error = jQuery('.message-error').html();  
+			jQuery('.mobileOTP').show();
+                        jQuery('.message.success').fadeIn();
+		   setTimeout(function(){ 
+			jQuery('.message.success').fadeOut();
+		     }, 3000);
+               }
+});
+});
+
+//function getOTP(otp){
+jQuery('#otp').on('keyup', function() {
+var otp = $('#otp').val();
+console.log(otp);
+var formKey = jQuery.mage.cookies.get('form_key');
+                        jQuery.ajax({
+                        url: '<?php echo $block->getBaseUrl().'customer_changes/account/otpverification'?>',
+                        type: "POST",
+                        data: {otp:otp,page:'signin',form_key :formKey},
+                        dataType: 'html',
+                            success: function(response){
+                                    var getdata =JSON.parse(response);
+					if(getdata.code == '200'){
+				  	window.v = true;
+					}else{
+					window.v = false;
+					}
+					console.log('after return');
+                            }
+                        });
+   });
+//}
+
+jQuery( ".customPhoneNumberValidationMethod" ).change(function() {
+ var value = parseInt(jQuery(this).val());
+ var mobile = parseInt("<?php echo $mobile; ?>");
+	if(value.toString().length == 10){
+		if(value != mobile){
+			jQuery('#otp').attr('data-validate',"{'maxlength':10, required:true, 'otp':true}");
+
+		}else {
+			jQuery('.verifyotp').hide();
+			jQuery('#otp').attr('data-validate',"{'maxlength':10, required:false, 'otp':true}");
+			jQuery('.verifymsgreq').hide();
+		}
+	}
+});
+
+
+jQuery( ".custContinueBtn" ).mouseover(function() {
+ var value = parseInt(jQuery('#mobile_no').val());
+ var mobile = parseInt("<?php echo $mobile; ?>");
+	if(value.toString().length == 10){
+		console.log(value +'!='+mobile);
+		if(value != mobile){
+			jQuery('.verifyotp').show();
+			jQuery('#otp').attr('data-validate',"{'maxlength':10, required:true, 'otp':true}");
+			
+		}else {
+			jQuery('#otp').attr('data-validate',"{'maxlength':10, required:false, 'otp':true}");
+			jQuery('.verifymsgreq').hide();
+			jQuery('.verifyotp').hide();
+		}
+	}
+});	
+
+
+// KEY PRESS to validate mobile number and pin code
+        jQuery('.customPhoneNumberValidationMethod').keyup(function(charEntered) {
+
+	 	var value = parseInt(jQuery('#mobile_no').val());
+ 		var mobile = parseInt("<?php echo $mobile; ?>");
+		console.log(value +"=="+ mobile);
+		if(value.toString().length == 10 && value != mobile){
+			jQuery('.verifymsgreq').show();
+		}else{
+			jQuery('.verifymsgreq').hide();
+			jQuery('.verifyotp').hide();
+		}
+        });
+    });
+
+
+
+</script>
+
+<?php } ?>

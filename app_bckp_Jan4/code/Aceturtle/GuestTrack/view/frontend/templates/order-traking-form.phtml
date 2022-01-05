@@ -1,0 +1,24 @@
+<div class="chatbot">  
+    <div class="chat-container" style="display: none;">
+        <div class="chat-header">
+            <h2 class="chat-title">Track Your Order</h2>
+            <div class="chat-cross">✕</div>
+        </div>
+        <div class="chat-body">
+           <!--  <div class="track-back-button"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </div> -->
+            <form  id="trackorder_form" name="trackorder_form"  action="<?= $block->escapeUrl($block->getUrl('sales/guest/view', ['_secure' => true])) ?>" method="post" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>" 
+                enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+                <fieldset class="fieldset">
+                     <div class="field order required">
+                        <label for="oar-order-id"><?= /* @escapeNotVerified */ __('Enter Phone number or Order id') ?></label>                       
+                        <input type="text" name="oar_order_id"  id="oar-order-id" placeholder="Enter phone number  or order id" class="input-text" data-validate="{required:true}">
+                    </div>
+                </fieldset>
+                <?php echo $block->getChildHtml('form.additional.info'); ?>
+                <div class="actions-toolbar">
+                    <button type="submit" title="Submit" class="action submit primary btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

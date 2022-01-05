@@ -1,0 +1,44 @@
+ <?php
+
+ if(!empty($orderData)) { ?>
+                                <?php 
+
+                   foreach ($orderData as $items) {
+                 
+
+                    $imagePath = $orderHelper->getProductImageUrl($items['order_item']['sku']);
+                ?>
+                                    <div class="orderhistory-detail">
+                                         <div class="order-image">
+                                                <img src="<?php if(empty($imagePath)) { echo $placeholderImageUrl; } else { echo $imagePath; } ?>"> 
+                                         </div>
+                                         <div class="orderHistoryDetailWrapper">
+                                            <div class="order-detail">
+                                                <?php
+                                                if(!empty($items['order_item']['name'])) { 
+                        $itemname = preg_replace('\'%20\'', ' ', $items['order_item']['name']);
+                         echo '<p class="productName">'.$itemname.'</p>';  
+                        }
+                                                if(!empty($items['order_item']['color'])) { echo '<p class="productInfo">'.'Color :'.'<span>'.$items['order_item']['color'].'</span>'.'</p>'; }
+                                                if(!empty($items['order_item']['size'])) { echo '<p class="productInfo">'.'Size :'.'<span>'.$items['order_item']['size'].'</span>'.'</p>'; }
+                                                if(!empty($items['order_item']['qty_ordered'])) { echo '<p class="productInfo">'.'Qty :'.'<span>'.$items['order_item']['qty_ordered'].'</span>'.'</p>'; }
+                                                if(!empty($items['order_item']['pricing_details']['grand_total'])) { echo '<p class="productPrice">'.'Total: '.'₹ '.$items['order_item']['pricing_details']['grand_total'].'</p>'; }
+                                                if(!empty($items['order_item']['pricing_details']['grand_total'])) { echo  '<p class="productPrice">'.'MRP: '.'₹ '.$items['order_item']['pricing_details']['mrp'].'</p>'; }
+                                                ?>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="order-status" >
+
+                                               <strong>Cancelled</strong>
+                                            </div>
+                                        <div class="My-account-Item-viewBtn">
+                                           
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            <?php } 
+
+
+
+                            ?>

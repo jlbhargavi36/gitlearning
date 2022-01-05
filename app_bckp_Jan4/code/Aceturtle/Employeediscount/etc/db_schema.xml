@@ -1,0 +1,15 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="aceturtle_emp_coupon" resource="default" engine="innodb" comment="Employee Coupon Table">
+	<column xsi:type="int" name="id"  padding="10" unsigned="true" nullable="false" identity="true"
+                comment=" ID"/>
+	<column xsi:type="text" name="email" nullable="true" comment="Email Id"/>
+	<column xsi:type="text" name="coupon" nullable="true" comment="Coupon code"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment=" Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment=" Modification Time"/>
+	<constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

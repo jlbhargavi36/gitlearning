@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <rubicon>
+            <pincode>
+                <rubicon_pincode_url>http://rubiconstg-bial.aceturtle.in/rccore/ServiceablePincodes</rubicon_pincode_url>
+                <method>getserviceablepincode</method>
+            </pincode>
+            <sla>
+                <max_order_pickup_days>7</max_order_pickup_days>
+            </sla>
+        </rubicon>
+        <twilio>
+            <general>
+                <otp_message>Use {{otp}} to login on Aldo website.</otp_message>
+            </general>
+        </twilio>
+    </default>
+</config>

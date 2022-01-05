@@ -1,0 +1,135 @@
+<?php
+/** @var Magento\Framework\Escaper $escaper */
+/** @var Magento\Framework\View\Element\Template $block */
+
+$viewModel = $block->getViewModel();
+$product = $viewModel->getProduct((int)$block->getRequest()->getParam('id'));
+$isLastFieldset = $block->hasData('is_last_fieldset') ? $block->getIsLastFieldset() : $viewModel->isLastFieldset((int)$product->getId());
+?>
+
+<div id="catalog_product_composite_configure_fields_amstore_credit"
+     class="amstore_credit_product <?= /* @noEscape */ $isLastFieldset ? 'last-fieldset' : '' ?>"
+     data-mage-init='{"Amasty_StoreCreditProduct/js/view/order/store-credit-product": {}}'>
+    <?php if (!$product->isAvailable() && !$viewModel->isSkipSaleableCheck()): ?>
+        <p class="stock unavailable">
+            <?= $escaper->escapeHtml(__('Availability:')) ?> <span><?= $escaper->escapeHtml(
+                __('Out of stock')
+            ) ?></span>
+        </p>
+    <?php endif; ?>
+    <div class="product options">
+        <fieldset class="admin__fieldset">
+            <?php if (($product->isSaleable() || $viewModel->isSkipSaleableCheck()) && $viewModel->isConfigured($product)): ?>
+                <?php if (!$product->getAmstoreCreditAllowOpenAmount() && (count($viewModel->getAmounts($product)) === 1)): ?>
+                    <?php
+                    $amount = $viewModel->getAmounts($product);
+                    $amount = array_shift($amount);
+                    ?>
+                    <div class="field fixed amount admin__field">
+                        <label class="label admin__field-label">
+                            <?= $escaper->escapeHtml(__('Amount')) ?>
+                        </label>
+                        <div class="control admin__field-control">
+                            <div class="admin__field-value">
+                                <span class="control-value price"
+                                      id="product-price-<?= $escaper->escapeHtmlAttr($product->getId()) ?>"
+                                >
+                                    <input type="hidden"
+                                           value="<?= $escaper->escapeHtmlAttr($amount) ?>"
+                                           price="<?= $escaper->escapeHtmlAttr($amount) ?>"
+                                           name="amstore_credit_amount"
+                                    />
+                                    <?= $escaper->escapeHtml($viewModel->getCurrencyByStore((float)$amount, $product->getStoreId())) ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="amstore-credit-amount admin__fieldset">
+                        <div class="field amount required _required admin__field">
+                            <?php
+                            $configValue = $viewModel->getDefaultValue('amstore_credit_amount', (int)$product->getId());
+                            $isCustomAmount = $viewModel->isCustomAmount($configValue, $product);
+                            $amounts = $viewModel->getAmounts($product)
+                            ?>
+                            <?php if ($amounts): ?>
+                                <label for="amstore-credit_amount" id="amount_label_select" class="label admin__field-label">
+                                    <?= $escaper->escapeHtml(__('Amount')) ?>
+                                </label>
+
+                                <div class="control admin__field-control">
+                                    <select
+                                            name="amstore_credit_amount"
+                                            id="amstore_credit_amount"
+                                            class="required-entry select admin__control-select"
+                                            data-amscproduct-js="amount"
+                                    >
+                                        <?php foreach ($amounts as $amount): ?>
+                                            <option value="<?= $escaper->escapeHtmlAttr($amount) ?>"
+                                                    price="<?= $escaper->escapeHtmlAttr($amount) ?>"
+                                                <?= /* @noEscape */ (($configValue === $amount) ? 'selected' : '')?>
+                                            >
+                                                <?= $escaper->escapeHtml($viewModel->getCurrencyByStore((float)$amount, $product->getStoreId())) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                        <?php if ($product->getAmstoreCreditOpenAmount()): ?>
+                                            <option value="custom" <?= /* @noEscape */ ($isCustomAmount ? 'selected' : '')?>>
+                                                <?= $escaper->escapeHtml(__('Other Amount...')) ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ($product->getAmstoreCreditOpenAmount()): ?>
+                            <?php if (count($viewModel->getAmounts($product)) === 0): ?>
+                                <input  type="hidden" name="amstore_credit_amount" value="custom">
+                            <?php endif; ?>
+                            <div class="field amount admin__field <?= /* @noEscape */ $isCustomAmount ? '' : 'amscproduct-hide'?>" id="amstore_credit_amount_input_fields" data-amscproduct-js="custom-amount">
+                                <label for="amstore_credit_amount_input" id="amount_label_input"
+                                       class="label admin__field-label">
+                                    <?= $escaper->escapeHtml(
+                                        __(
+                                            'Custom Amount in %1',
+                                            $viewModel->getCurrentCurrencyCode($product->getStoreId())
+                                        )
+                                    ) ?>
+                                </label>
+                                <div id="amstore_credit_amount_box" class="control admin__field-control">
+                                    <input type="hidden" name="amstore_credit_amount_custom_order" value="1" />
+                                    <input
+                                            type="text"
+                                            id="amstore_credit_amount_input"
+                                            name="amstore_credit_amount_custom"
+                                            class="validate-number input-text admin__control-text <?= /* @noEscape */
+                                            $isCustomAmount ? 'required-entry' : '' ?>"
+                                            data-amscproduct-js="field"
+                                            value="<?= $escaper->escapeHtmlAttr(
+                                                $viewModel->getDefaultValue(
+                                                    'amstore_credit_amount_custom',
+                                                    (int)$product->getId()
+                                                )
+                                            ) ?>"
+                                            price="<?= $escaper->escapeHtml(
+                                                $viewModel->getDefaultValue(
+                                                    'amstore_credit_amount_custom',
+                                                    (int)$product->getId()
+                                                )
+                                            ) ?>"
+                                    />
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        </fieldset>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        // init widget initialization on dynamic content
+        $('#catalog_product_composite_configure_fields_amstore_credit').parent().trigger('contentUpdated');
+    });
+</script>

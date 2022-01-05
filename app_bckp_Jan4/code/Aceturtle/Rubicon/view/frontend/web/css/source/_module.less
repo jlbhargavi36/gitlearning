@@ -1,0 +1,556 @@
+// Custom Variables for Order Page and Order Detail Page Cancel Page 
+@mobile320-765: ~"only screen and (min-width: 320px) and (max-width: 765px)";
+@color_3100b5 : #3100b5;
+@color_white : #ffffff;
+@color_grey : #3a2e2c;
+@color_333 : #333;
+@color_444 : #444;
+@fullwidth: 100%;
+@block_display : block;
+@none : none;
+@unset : unset;
+@uppercase : uppercase;
+@pointer : pointer;
+@flex_display : flex;
+@row : row;
+@border-box : border-box;
+@100_font_weight : 100;
+@400_font_weight : 400;
+@pos-absolute : absolute;
+@pos-relative : relative;
+@pos-fixed : fixed;
+@aldo_footer_border_line : 1px solid #ccc;
+@border_eee:1px solid #eee ;
+
+
+& when (@media-common = true) {     
+
+    .orderhistory-status { 
+        margin-bottom: 15px; 
+        @media @mobile320-765 {
+            margin-left: -20%;
+        }
+  
+        ol.progtrckr {
+            padding: 5px 30px 77px 1px;
+            margin: 0 auto;
+            overflow: hidden;
+           
+            li {
+                width: 25%;
+                float: left;
+                text-align: center;
+                list-style: none;
+                position: relative;
+                color: #ccc;
+                border-bottom: 4px solid #ccc;
+                &::before {
+                    position: relative;
+                    bottom: -.7em;
+                    float: left;
+                    height: 2em;
+                    width: 2em;
+                    line-height: 2em;
+                    border-radius: 2em;
+                    left: 50%;
+                    margin-top: 25px;
+                    background-color: #ccc;
+                    border: none;
+
+                }
+                &.progtrckr-done::before, &.progtrckr-todo::before {
+                    color: #fff;
+                    content: '✓';
+                    position: relative;
+                    bottom: -1.3em;
+                    float: right;
+                    margin-top: 0;
+                    left: 0 !important;
+                }
+                &.progtrckr-done {
+                    color: #000;
+                    border-bottom: 4px solid #07bab6;
+
+                    &::before {
+                        color: #fff;
+                        border: none;
+                        background-color: #07BAB6 !important;
+                    }
+                }
+                &:first-child {
+                    border-bottom: 0;
+                    min-width: 35px;
+                    max-width: 95px;
+                }
+                
+                & > span {
+                    position: absolute;
+                    top: 50px;
+                    right: auto !important;
+                    margin-left: 0;
+                    color: #000;
+                    width: 100%;
+                    @media (max-width: 480px) {
+                        font-size: 10px;
+                    } 
+                    &.formate {
+                        top: 68px;
+                        font-weight: 400;
+                    }
+                }
+                &.progtrckr-done > span
+                 {
+                      font-weight: bold;
+                      @media (max-width: 480px) {
+                        font-size: 10px;
+                    } 
+                }
+            }
+        }
+    }
+            
+
+    // *************** SALES ORDER HISTORY PAGE , CANCEL PAGE  and RETUN PAGE Common CSS start *************** //
+    .sales-order-history , .returnorder-index-cancelorderhistory , .returnorder-index-returnorderhistory, .sales-guest-view {
+        #maincontent{ 
+            .columns{
+                .column{
+                    &.main{
+                        .orders-history , .cancelHistorySection , .returnHistorySection{
+                            width: @fullwidth - 17%;
+                            margin-top: 3px;
+                            @media @mobile320-765 {
+                                width: @fullwidth;
+                            }
+                            .orderhistory-detail{
+                                display: flex;
+                                width: 100%;
+                                flex-direction: row;
+                                position: relative;
+                                box-shadow: 0px 0.5px 2.5px 2px rgba(40, 44, 63, 0.05);
+                                padding: 7px 12px 10px 12px;
+                                margin-left: 4px;
+                                box-sizing: border-box;
+                                margin-bottom: 15px;
+                                @media @mobile320-765 {
+                                    margin-left: 0px;
+                                    border: @aldo_footer_border_line;
+                                    padding: 7px 8px 10px 8px;
+                                }
+                                #placeorder-status {
+                                    display: block !important;
+                                }
+                                .order-image{
+                                    width: @fullwidth - 87%;
+                                    @media @mobile320-765 {
+                                        width: @fullwidth - 73%;
+                                    }
+                                    img{
+                                        height: 108px;
+                                        width: 80px;
+                                    }
+                                }
+                                .orderHistoryDetailWrapper{
+                                    width: @fullwidth - 37%;
+                                    p{
+                                        margin-bottom: 0px;
+                                        font-size: 14px;
+                                        line-height: 1.2;
+                                        &.productName , &.productPrice{
+                                
+                                            color: #3e4152;
+                                        }
+                                        &.productInfo{          
+                                            color: #7e818c;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } 
+    // *************** SALES ORDER HISTORY PAGE , CANCEL PAGE  and RETUN PAGE Common CSS END ************ //
+    // ****************************** My account Order Page ******************************//
+    .sales-order-history{
+        #maincontent{
+            .columns{
+                .column{
+                    &.main{
+                        .orders-history{
+                            #my-orders-table{
+                                .my-order-listingpage{
+                                    position: @pos-relative;
+                                    .orderhistory-heading{
+                                        display: @flex_display;
+                                        width: @fullwidth;
+                                        flex-direction: @row;
+                                        justify-content: space-between;
+                                        margin-left: 4px;
+                                        box-sizing: @border-box;
+                                        @media @mobile320-765 {
+                                            margin-left: 0px;
+                                            display: block;
+                                        }
+                                        .orderHistoryHeadingBtn{
+                                            @media @mobile320-765 {
+                                                text-align: left;
+                                            }
+                                            button{
+                                                // border: @none !important;
+                                                // background-color: transparent;
+                                                // text-align: right;
+                                                // padding-right: 0px;
+                                                // font-size: 14px;
+                                                // font-weight: @100_font_weight;
+                                                // color: #000;
+                                                &:hover{
+                                                    color: @color_3100b5;
+                                                }
+                                                &:active{
+                                                    box-shadow:@none !important;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .orderhistory-detail{
+                                        .orderHistoryDetailWrapper{
+                                            .order-status{
+                                                span{
+                                                    &.status{
+                                                        display: @none;
+                                                    }
+                                                    &.order-status{
+                                                       
+                                                        color: @color_3100b5;
+                                                        text-transform: capitalize;
+                                                        padding: 0px;
+                                                        font-weight: @100_font_weight;
+                                                        margin-bottom: 0px;
+                                                    }
+						    .orderhistory-status {
+							display: @none;
+						    }
+                                                }
+                                            }
+                                        }
+                                        .My-account-Item-viewBtn{
+                                            width: @fullwidth - 76%;
+                                            text-align: right;
+                                            position: @pos-absolute;
+                                            right: 10px;
+                                            top: 39%;
+                                            @media @mobile320-765 {
+                                                width: @fullwidth - 90%;
+                                            }
+                                            button{
+                                                background-color: transparent;
+                                                border: @none;
+                                                font-size: 20px;
+                                                font-weight: @100_font_weight !important;
+                                                color: #000;
+                                                &:active{
+                                                    box-shadow:@none !important;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .order-products-toolbar{
+                           &.toolbar.bottom {
+                                width: @fullwidth - 17%;
+                                @media @mobile320-765 {
+                                    width: @fullwidth;
+                                }
+                                @media @mobile320-765 {
+                                    .pager{
+                                        width: @fullwidth;
+                                        flex-direction: @row;
+                                        justify-content: space-between;
+                                        display: @flex_display;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // ****************************** My account Order Detail Page ******************************//
+    .sales-order-view, .sales-guest-view {
+        #maincontent{
+            .page-title-wrapper{
+                .order-actions-toolbar{
+                    display: @none;
+                }
+            }
+            .columns{
+                .column{
+                    &.main{
+                        .order-links {
+                            display: @none;
+                        }
+                        .orderDetailPage{
+                            width: @fullwidth - 17%;
+                            @media @mobile320-765 {
+                                width: @fullwidth;
+                            }
+                            .orderInfoSection {
+                                margin-bottom: 15px;
+                                border: 1px dashed #ececec;
+                                border-top: 1px dashed #ececec;
+                                background: #f9f9f9;
+                                padding: 10px 15px;
+                                p{
+                                    margin: 0px;
+                                    span{
+                                        color: @color_grey;
+                                        font-size: 15px;
+                                        font-weight: @100_font_weight;
+                                        &.orderInfoName{
+                                            
+                                        }
+                                        &.orderInfoValue{
+                            
+                                        }
+                                    }
+                                }
+                            }
+                            .oderPersonalInfoSection {
+                                padding: 10px 15px;
+                                .oderPersonalInfo{
+                                    margin: 0px;
+                                    span{
+                                        color: @color_grey;
+                                        font-size: 15px;
+                                        font-weight: @100_font_weight;
+        
+                                    }
+                                }
+                            }
+                            .orderAddressSection{
+                                margin-top: 10px;
+                                border: 0;
+                                border-top: @border_eee;
+                                padding-top: 20px;
+                                display: @flex_display;
+                                width: @fullwidth;
+                                flex-direction: @row;
+                                border-bottom: @border_eee;
+                                padding-bottom: 14px;                           
+                                .address {
+                                    width: @fullwidth / 2;
+                                    h5{
+                                        color: @color_444;
+                                        font-size: 16px;
+                                   
+                                        font-weight: @100_font_weight;
+                                        margin-bottom: 2%;
+                                        padding-left: 15px;
+                                        margin-top: 2px;
+                                    }
+                                }
+                            }
+                            .orderDetailsSection{
+                                .shipmentInfo{
+                                    margin: 2% 0px;
+                                    span{
+                                        color: @color_grey; 
+                                        font-size: 16px;
+                                        font-weight: @100_font_weight;
+                                        &.shipmentInfoValue{                
+                                        }
+                                    }
+                                    a .shipmentInfoValue {
+                                        float: right;
+                                        padding: 7px 15px;
+                                        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+                                        border: 1px solid #ccc;
+                                        text-transform: uppercase;
+                                        font-size: 14px;
+                                        @media @mobile320-765 {
+                                           margin: 15px 0;
+                                        }
+                                    }
+                                }
+                                #my-orders-table{
+                                    .orderhistory-detail {
+                                        display: @flex_display;
+                                        width: @fullwidth;
+                                        flex-direction: @row;
+                                        .order-image{
+                                            width: @fullwidth - 91%;
+                                            @media @mobile320-765 {
+                                                width: @fullwidth - 79%;
+                                            }
+                                            img{
+                                                height: 75px;
+                                                width: 56px;
+                                            }
+                                        }
+                                        .orderHistoryDetailWrapper {
+                                            width: @fullwidth - 25%;
+                                            @media @mobile320-765 {
+                                                width: @fullwidth;
+                                            }
+                                            div.order-status{
+                                                @media @mobile320-765 {
+                                                    margin-bottom: 115px;
+                                                }
+                                            }
+                                            .order-detail{
+                                                p{
+                                                    margin-bottom: 0px;
+                                                    font-size: 16px;
+                                                    font-weight: @100_font_weight !important;
+                                                    &.Product-name{
+                                                      
+                                                        color: @color_444;
+                                                        line-height: 1.2;
+                                                    }
+                                                    &.productInfo , &.productPrice{
+                                                        color: @color_grey;
+                                                      
+                                                        span{
+                                                    
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .order-status{
+                                                margin-bottom: 0px;
+                                                span{
+                                                    font-size: 15px;
+                                                    color: @color_grey;
+                                                    font-weight: @100_font_weight !important;
+                                                    @media (max-width: 480px) {
+                                                        font-size: 10px;
+                                                    }
+                                                    &.status{
+                                                        
+                                                    
+                                                        text-transform: lowercase;
+                                                    }
+                                                    &.order-status{
+                                          
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .orderCancelSection , .orderReturnSection{
+                                            width: @fullwidth - 85%;
+                                            position: @pos-relative;
+                                            .openModelPopup{
+                                                position: @pos-absolute;
+                                                top: 30%;
+                                                left: 8%;
+                                                &:hover{
+                                                    text-decoration: @none;
+                                                    cursor: @pointer; 
+                                                }
+                                                span{
+                                                    font-size: 16px;
+                                                    color: @color_333;
+                                                    font-weight: @100_font_weight;
+                                                  
+                                                    text-transform: @uppercase;
+                                                    border: @aldo_footer_border_line;
+                                                    padding: 6px 14px;
+                                                    &:hover {
+                                                        background:@color_grey ;
+                                                        color: @color_white;
+                                                    }
+                                                   
+                                                }
+                                            }
+                                        }
+                                        .orderReturnSection { display: none; }
+                                    }
+                                    .popUpOverlay{
+                                        background-color: rgba(51, 51, 51, 0.55);
+                                        bottom: 0;
+                                        left: 0;
+                                        position: @pos-fixed;
+                                        right: 0;
+                                        top: 0;
+                                        opacity: 9999;
+                                        display: @none;
+                                        z-index: 999;
+                                    }
+                                    .orderCancel , .orderReturn{
+                                        background: @color_white;
+                                        padding: 20px;
+                                        border-radius: 3px 3px 0 0;
+                                        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+                                        z-index: 9;
+                                        width: @fullwidth / 2;
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, -50%);
+                                        position: @pos-fixed;
+                                        opacity: 999;
+                                        z-index: 9999;
+                                        @media @mobile320-765 {
+                                            width: @fullwidth - 10%;
+                                        }
+                                        .pop-inner{
+                                            .return-infod{
+                                                .popUpWrapper{
+                                                    font-weight: @100_font_weight;
+                                                    h3{
+                                                        font-size: 17px;
+                                                
+                                                        margin: 2% 0px;
+                                                    }
+                                                    .popUpWrapperContent{
+                                                        margin-bottom: 0px;
+                                                        color:@color_333;
+                                                        font-size: 16px;
+                                                        margin: 2% 0px;
+                                                    }
+                                                }
+                                                .cancel-PopupBtn{
+                                                    display: @flex_display;
+                                                    width:@fullwidth;
+                                                    justify-content: space-evenly;
+                                                    flex-direction: @row;
+                                                    margin: 4% 0px 3% 0px;
+                                                    .popupBtn{
+                                                        width: @fullwidth - 70%;
+                                                        background-color:@color_white;
+                                                        background: @color_white;
+                                                        display: @block_display;
+                                                        color: @color_333;
+                                                        border-radius: @unset;
+                                                        padding: 8px 35px;
+                                                        border: 1px solid #797878;
+                                                        text-transform: @uppercase;
+                                                        font-size: 12px;
+                                                        font-weight: @400_font_weight;
+                                                    
+                                                        @media @mobile320-765 {
+                                                            width: @fullwidth - 55%;
+                                                        }
+                                                        &:hover {
+                                                            background:@color_grey ;
+                                                            color: @color_white;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

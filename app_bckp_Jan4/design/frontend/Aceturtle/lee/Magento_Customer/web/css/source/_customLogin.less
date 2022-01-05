@@ -1,0 +1,801 @@
+@color_grey: #444;
+
+
+& when (@media-common = true) { 
+	// Common CSS for Login and registration Page Input Fileds start
+.customer-account-login, .customer-account-create , .customer-account-forgotpassword{ 
+	.page-wrapper{
+		#maincontent{
+			.columns{
+				.signUpIcon {
+					// background: url(../images/aldoAllSprite.png) no-repeat;
+					display: @block_display;
+					background-size: 625px;
+					width: 103px;
+					// height: 92px;
+					background-position: -229px -67px;
+					margin: 0 auto;
+					filter: grayscale(100%);
+					opacity: 0.7;
+				}
+				.fieldset {
+					input {
+						&::-webkit-input-placeholder { /* Edge */
+						  color: #999;
+						}
+
+						&:-ms-input-placeholder { /* Internet Explorer 10-11 */
+						  color: #999;
+						}
+
+						&::placeholder {
+						  color: #999;
+						}
+					}
+					// captcha code start
+					.controls{
+						.captcha{
+							#captcha_user_create{
+								width: @fullwidth;
+							}
+							.nested{
+								#captcha-container-user_create{
+									.captcha-reload{
+										border-radius: 0;
+										border: 0;
+										background-color:@button-primary__background;
+										border: @button-primary__border;
+									}
+								}
+							}
+						}
+					}
+					// captcha code End
+					.field{
+						&.showPwd{
+							// height: 40px;
+							display: @flex_display;
+							margin-bottom: 15px;
+							input{
+								&#pass{
+									width: @fullwidth - 23%;
+									border-radius: 0px;
+									float: @float_l;
+								}
+							}
+						}
+						&.mobile{
+							.controls{
+								.countryCodeRow {
+									height: 50px;
+									width: 10%;
+									float: left;
+									border-radius: 0px;
+									border: 0 none;
+									background: #f1f1f1;
+									padding: 10px 8px 10px 8px;
+								}
+								.verfybutton {
+								width: @fullwidth - 87%;
+								float: @float_r;
+								padding: 8px 0px;
+								border-radius: 0px 5px 5px 0px;
+								border: 0 @none;
+								background: @color_f1f1f1;
+								 .verfyToggle {
+									color: @color_grey;
+									font-size: 14px;
+									border-bottom: @anchor_hover_border;
+									text-align: left;
+									cursor: @pointer;
+								  }
+							       }
+								
+
+								input.mobileNum{
+									width:80% !important;
+									padding: 12px 10px 10px 1px !important;
+									
+								}
+							}
+						}
+						.controls , .control{
+							width: @fullwidth;
+							display : @block_display;
+							.loginSpriteRow{
+								width: @fullwidth - 90%;
+								float: @float_l;
+								border-radius: 5px 0px 0px 5px;
+								border: 0 @none;
+								background: @color_f1f1f1;
+								padding: 7px 8px 9px 4px;
+								height: 50px;
+								.loginSprite{
+									display: @block_display;
+									height: 24px;
+    								line-height: 2;
+									opacity: 0.5;
+									margin: 2% 0px 0px 0px;
+									text-align: center;
+									&.mailIcon{
+										background-position: -234px -45px;
+										background-size: 373px;
+									}
+									&.passWordIcon{
+										background-position: -276px -6px;
+										background-size: @unset;
+									}
+									&.nameIcon{
+										background-position: -380px -5px;
+										background-size: @unset;
+									}
+									&.mobileIcon{
+										background-position: -200px -45px;
+										background-size: 373px; 
+									}
+									&.choosePassWordIcon{
+										background-position: -276px -6px;
+										background-size: @unset;
+									}
+									&.calenderIcon{
+										background-position: -108px -41px;
+										background-size: 373px;
+									}
+								}
+							}
+
+							.verfybutton {
+								width: @fullwidth - 87%;
+								float: @float_r;
+								padding: 8px 0px;
+								border-radius: 0px 5px 5px 0px;
+								border: 0 @none;
+								background: @color_f1f1f1;
+								 .verfyToggle {
+									color: @color_grey;
+									font-size: 14px;
+									border-bottom: @anchor_hover_border;
+									text-align: left;
+									cursor: @pointer;
+								  }
+							}
+
+							.passWordShowHide {
+								height: 50px;
+    							line-height: 2;
+								width: @fullwidth - 87%;
+								float: @float_r;
+								padding: 10px  0px;
+								border-radius: 0px 5px 5px 0px;
+								border: 0 @none;
+								background: @color_f1f1f1;
+								.passWordToggle {
+									color: @color_grey;
+									font-size: 14px;
+									text-align: center;
+									display: block;
+									font-weight: 600;
+									cursor: @pointer;
+									height: 30px;
+    								line-height: 2;
+								}
+							}
+						}
+						&.registrationPageDob{
+							margin-bottom: 0px;
+							position: relative;
+							.control{
+								&.customer-dob{
+								flex-direction: row-reverse;
+								display: @flex_display;
+									#dob{
+										border: 0 @none;
+										background: @color_f1f1f1;
+										margin: 0px;
+										padding: 12px 10px 10px 10px;
+										width: @fullwidth - 10%;
+										box-sizing: @border-box;
+										height: 50px;
+										border-radius: 0px 5px 5px 0px;
+									}
+								button{
+									&.ui-datepicker-trigger{
+										width:  @fullwidth - 90%;
+										float: @float_l;
+										border-radius: 5px 0px 0px 5px;
+										border:0 @none;
+										background: @color_f1f1f1;
+									}
+								}
+								#dob-error{
+									position: absolute;
+									top: 34px;
+									left: 0px;
+								}
+								}
+							}
+						}
+						&.registrationPageDob , &.Anniversary{
+							.label{
+								width: @fullwidth - 60%;
+								font-size: 13px;
+								text-align: left;
+								font-family:@font-family-name__base;
+								font-weight: @font-weight__regular;
+							}
+						}
+						&.registrationPageDob {
+							.label{
+								&:after{
+									content: '*';
+								}
+							}
+						}
+						&.Anniversary{
+							display: @flex_display;
+							width: @fullwidth;
+							flex-direction: @column;
+						}
+
+						.verfyToggle.button {
+						    background: #000;
+						    color: #fff;
+						    padding: 9px 5px;
+						    margin-left: 11px;
+						    cursor:pointer;
+						   margin-top: 0px;
+						    float: right;						    
+						    @media @mobile420 {
+						    	margin-left: 4% !important;
+						    }
+						}
+						&.verifyotp {
+							.control { position: relative; } 
+							#otp { width: 100%; }
+							.verfyToggle {
+								position: absolute;
+								top: 0; 
+								right: 0;
+							}
+						}
+						&.newsletter:before{ display: none; }
+					}
+				}
+			}
+		}
+	}
+}
+// Common CSS for Login and registration Page Input Fileds End
+  .customer-account-login, .customer-account-create, .customer-account-forgotpassword{
+		/* .page-wrapper{
+		 	// background: url(../images/login-pattern.png);
+			// background-color: #f7f7f7;
+			background-color: @color_white;
+		 	header.page-header {
+			    background: @color_white;
+			}
+		} */
+		.login-container .block.block-new-customer, .page-title-wrapper {
+		    display: @none;
+		}
+		.columns {
+		    margin: 30px 0;
+		}
+	}
+.button-container{
+	.button-login {
+	    text-align: @center;
+	    margin-top: 15px;
+	    float: @float_l;
+        width: @fullwidth;
+	}
+	.login-label {
+	    color: #94969f;
+	    font-size: 11px;
+	    text-transform: @uppercase;
+	    margin-right: 5px;
+	}
+	.secondary-link {
+	    background: @none;
+	    border: 0 @none;
+	    padding: 0;
+	    text-transform: @uppercase;
+	    font-weight: @100_font_weight;
+	    text-decoration: @unset;
+	}
+}
+ .customer-login-container, .register-container, .forget-password-container{
+				max-width: 600px; 
+			    margin: 0 auto;
+			    width: @fullwidth;
+				box-shadow: 0px 0px 5px 3px #fcd7c9;
+			    padding: 25px 15px;
+			    box-sizing: @border-box;
+				background: @color_white;
+				@media @mobile320-765 {
+					border:@aldo_footer_border_line;
+    				border-top: @none;
+				}
+			    .login-title {
+				   .login-heading {
+					    text-align: @center;
+					    display: @block_display;
+					    color: #777;
+					    font-weight: @100_font_weight;
+					    font-size: 16px;
+					    margin-bottom: 8px;
+					    margin-top: -13px;
+					}
+				}
+			    .fieldset{
+			      margin: 0 !important;
+			      &:after{
+			      margin: 0 !important;
+			      }
+				    .field{
+						margin-bottom: 20px; 
+					   .input-text {
+							border-radius: 0px 5px 5px 0px;
+							border: 0 @none;
+							background: @color_f1f1f1;
+							padding: 12px 10px 10px 10px;
+							width: @fullwidth - 10%;
+							box-sizing: @border-box;
+							height: 50px;
+							font-size: 13px;
+							font-weight: @font-weight__regular;
+						}
+				    }
+			    }
+				.button-container .register , #mobile_login .mobileLogin  {
+				    width: @fullwidth;
+				    background:@button-primary__background;
+					border: @button-primary__border;
+					color:@button-primary__color;
+					margin: 20px 0 0 0;
+				    padding: 10px 20px;
+				    text-transform: @uppercase;
+				    font-weight: @font-weight__regular;
+				    border-radius: 0;
+					text-decoration: @unset;
+					span{
+						font-size: 14px;
+					}
+				}
+			} 
+
+.customer-account-create{
+	.block{
+		&.account-social-login{
+			&:before{
+				content: 'Signup with';
+				text-align: @center;
+				display: @block_display;
+				color: #777;
+				font-weight:@100_font_weight;
+				font-size: 16px;
+				padding: 4% 0 0 0 !important;
+				text-transform: @uppercase;
+			}
+			span{
+				&.logText{
+					display: @none;
+				}
+			}
+		}
+	}
+	 .form-create-account {
+	    width: @fullwidth !important;
+	    min-width: @fullwidth !important;
+	}
+	fieldset.fieldset.create.account, .form-create-account > .field, .form-create-account > .actions-toolbar {
+	    display: @none;
+	}
+}
+// Forget Password Page
+.customer-account-forgotpassword{
+	.forget-password-container{
+		margin-top: 5px;
+		box-shadow: 0px 2px 5px 2px #fcd7c9;
+		@media @mobile320-765 {
+			border:@aldo_footer_border_line;
+			padding-bottom: 9%;
+		}
+		.form.password.forget{
+			width: @fullwidth !important;
+			min-width: @fullwidth !important;
+			.field.note {
+				text-align: @center;
+				font-size: 14px;
+				color: @color_grey;
+				font-family:@font-family-name__base;
+				font-weight: @font-weight__regular;
+				margin-bottom: 10px;
+			}
+			.form-headding h4 {
+				text-align: @center;
+				font-weight: @font-weight__regular;
+				font-size: 17px;
+			}
+			.fieldset .field{
+			.label {
+				width: @fullwidth !important;
+				text-align: left !important;
+				padding: 5px 0 !important;
+				font-size: 14px;
+				color: @color_grey;
+				font-family:@font-family-name__base;
+				font-weight: @font-weight__regular;
+				}
+				.control{
+				width: @fullwidth !important;
+				}
+			}
+			.actions-toolbar {
+				margin: 0 !important;
+				.primary {
+					width: @fullwidth;
+					.action.primary {
+						width: @fullwidth;
+						background:@button-primary__background;
+						border: @button-primary__border;
+						color:@button-primary__color;
+						text-transform: @uppercase;
+						font-family:@font-family-name__base;
+						font-weight: @font-weight__regular;
+						padding: 10px 20px;
+						margin: 15px 0 0 0;
+						&:hover{
+						background: @color_333;
+						color: @color_white;
+						}
+					}
+				}
+				.secondary {
+					float: @float_l !important;
+					padding-top: 5px;
+					@media @mobile320-765 {
+						padding-top: 0px;
+					}
+					a.action.back {
+					color: @color_blue;
+					float: @float_l;
+					font-family:@font-family-name__base;
+					font-weight: @font-weight__regular;
+					&:before {
+						content: '<';
+    					font-size: 15px;
+						padding-right: 5px;
+					}
+					}
+				}
+			}
+		}
+	}
+}
+.register-container{
+	.login-inner-container{
+		.button-container .secondory-link {
+		    margin-top: 15px;
+		    float: @float_l;
+			width: @fullwidth;
+			@media @mobile320-765 {
+				display: @flex_display;
+				width: @fullwidth;
+				justify-content: space-between;
+			}
+		    .not-register-user-link {
+				float: @float_r;
+				@media @mobile320-765 {
+					float: @unset;
+				}
+			}
+			.forgot-link{
+			    text-transform: @uppercase;
+			    font-weight: @100_font_weight;
+			    text-decoration: @unset;
+			}
+		}
+		.container-label {
+			.email-login {
+				#main_login{
+					.primary {
+					clear: both;
+					padding-top: 10px;
+					}
+				}
+			}
+			> li {
+				font-size: 16px;
+				padding: 17px 0;
+				color: gainsboro;
+				text-align: center;
+				text-transform: uppercase;
+				cursor: pointer;
+				margin: 0;
+				border: 2px solid #f5f4f4;
+				border-radius: 7px;
+			    &.active-tab {
+					font-weight: bold;
+					color: #fcd7c9;
+					border: 3px solid #fcd7c9;
+				}
+			}
+		}
+		.tab-content-section {
+		    display: @none;
+			 &.active-tab {
+			    display: @block_display;
+			}   
+		}
+		#tab-2{
+			&.login-with-otp {
+				#otpLoginForm{
+					#login_error_message , .resendMsg{    
+						font-family:@font-family-name__base;
+						font-weight: @font-weight__light;
+						font-size: 13px;
+						margin-bottom: 0px !important;
+					}
+					#login_error_message {
+						color: #F00;
+					}
+					.resendMsg{
+						color: green;
+					}
+					.mobile{
+						.mobileField{
+							width:  @fullwidth;
+							.loginSprite{
+								&.mobileIcon{
+    								float: @float_l;
+								}
+							}
+							.countryCodeRow {
+								width: 10%;
+								height: 50px;
+								float: left;
+								border-radius: 0px;
+								border: 0 none;
+								background: #f1f1f1;
+								padding: 10px 8px 10px 8px;
+							}
+							.verfybutton {
+								width: @fullwidth - 87%;
+								float: @float_r;
+								padding: 8px 0px;
+								border-radius: 0px 5px 5px 0px;
+								border: 0 @none;
+								background: @color_f1f1f1;
+								 .verfyToggle {
+									color: @color_grey;
+									font-size: 14px;
+									border-bottom: @anchor_hover_border;
+									text-align: left;
+									cursor: @pointer;
+								  }
+							}
+
+							#mobile_no {
+								width:  @fullwidth - 20%;
+								&::-webkit-input-placeholder { /* Edge */
+								  color: #999;
+								}
+
+								&:-ms-input-placeholder { /* Internet Explorer 10-11 */
+								  color: #999;
+								}
+
+								&::placeholder {
+								  color: #999;
+								}
+							}
+							#mobile_no-error{
+								margin-top: 2px;
+								margin-left: 3%;
+							}
+						}
+					}
+					.mobileOTP {
+						display: @flex_display;
+						width:  @fullwidth;
+						flex-direction: @row;
+						border-radius: 5px;
+						border: 0 @none;
+						background: @color_f1f1f1;
+					   
+						#otp_password{
+							width: @fullwidth - 21%;
+						}
+						#resend_otp{
+							button{
+							font-size: 14px;
+							font-family:@font-family-name__base;
+							font-weight: @font-weight__regular;
+							color: @color_grey;
+								&:hover{
+									color:@color_blue;
+								}
+								&:active{
+									box-shadow: @unset !important;
+								}
+							}
+						}
+						#otp_password  , #resend_otp{
+							#post_otp , button {
+								border: @none;
+								background-color: transparent;
+								height: 40px;
+							}
+						}
+					}
+					.button-container{
+						#send_otp{
+							button{
+								background:@color_white;
+								font-family:@font-family-name__base;
+								font-weight: @font-weight__regular;
+								display: @block_display;
+								text-align: @center;
+								color: @color_grey;
+								border-radius: @unset;
+								padding: 8px 35px;
+								border: @aldo_btn_border;
+								width:  @fullwidth - 60%;
+								text-transform: @uppercase;
+								font-size: 12px;
+								@media @mobile320-765{
+									width:  @fullwidth - 40%;
+								}
+							}
+						}
+						#mobile_login{
+							margin-top: 30px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+// Social Login Start Overwritten from the Module (mageplaza CSS) start
+.actions-toolbar.social-btn .btn-social > :first-child {
+	line-height: 39px;
+}	
+.actions-toolbar.social-btn .fa-facebook-f:before, .actions-toolbar.social-btn .fa-facebook:before {
+    color: @color_blue;
+}
+.actions-toolbar.social-btn .btn-google .fa-google {
+    margin-top: 3px;
+}
+.block{
+	&.account-social-login{
+		// margin-bottom: 0px;
+		// width:  36.7%;
+		margin: 0 auto;
+		background-color:@color_white;
+		box-shadow: 0px 2px 5px 2px #fcd7c9;
+		margin-top: 4px !important;
+		max-width: 410px;
+		margin: 0 auto;
+		@media @mobile320-765{ 
+			width: @fullwidth;
+			border: @aldo_footer_border_line;
+    		border-bottom: @none;
+		} 
+		span{
+			&.logText {
+				text-align: @center;
+				display: @block_display;
+				color: #777;
+				font-weight: @100_font_weight;
+				font-size: 16px;
+				padding: 7% 0px 4% 0px!important;
+				text-transform: @uppercase;
+			}
+		}
+		.block-content{
+			display: @flex_display;
+			width: @fullwidth;
+			flex-direction: @row;
+			justify-content: space-evenly;
+			.actions-toolbar{
+				&.social-btn {
+					width: 40.5%;
+					.btn-block{
+						&.btn-social{
+							font-size: 13px;
+							color: #696b79;
+							border: 1px solid #bfc0c6;
+							background-color: @color_white;
+							border-radius: 5px;
+							line-height: 2.3;
+							font-family:@font-family-name__base;
+							font-weight: @font-weight__regular;
+							text-transform: @uppercase;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+// PASSWORD SETUP LINK PAGE START
+.customer-account-createpassword {
+    #maincontent{
+        max-width: 410px;
+        margin: 0 auto;
+        width: @fullwidth;
+        box-shadow: 2px 3px 5px 3px rgba(0, 0, 0, 0.15);
+        padding: 25px 15px;
+        box-sizing: border-box;
+        background: @color_white;
+		margin-top: 13px;
+		margin-bottom: 5%;
+		@media @mobile320-765{ 
+			width: @fullwidth - 10%;
+		} 
+		.main{
+			padding-bottom: 10px;
+			.form{
+				&.reset{
+					max-width: 410px;
+					margin: 0 auto;
+					width: @fullwidth;
+					min-width: 100%;
+					.fieldset{
+						margin-bottom: 20px;
+						.field{
+							display: @flex_display;
+							flex-direction: @column;
+							label{
+								&.label{
+									width: @fullwidth !important;
+									text-align: left !important;
+								}
+							}
+							.control{
+								width : @fullwidth;
+							}
+						}
+					}
+					.actions-toolbar{
+						margin-left: 0px;
+						.primary{
+							width: @fullwidth;
+							.action{
+								&.submit{
+									background-color:@button-primary__background;
+									border: @button-primary__border;
+									text-transform: @uppercase;
+									color: @color_white;
+									padding: 10px 20px;
+									font-weight: 400;
+									border-radius: 0;
+									text-decoration: @unset;
+								}
+							} 
+						}
+						.secondary {
+							text-align: left;
+							width: @fullwidth;
+							.action{
+								&.back{
+									&:before{
+										content: '<';
+										font-size: 15px;
+										padding-right: 5px;
+									}
+								}
+							}
+						}
+
+					}
+				}
+			}
+		}
+    }
+}
+// PASSWORD SETUP LINK PAGE END
+}
+

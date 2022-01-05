@@ -1,0 +1,38 @@
+<?php
+/**
+ * @var \Amasty\Xsearch\Block\Search\AbstractSearch $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$results = $block->getResults();
+?>
+<?php if (count($results)): ?>
+    <?php foreach ($results as $item):
+        /** @var array $item  = ['title' => string, 'name' => string, 'description' => string, 'url' => string, 'num_results' => string] */ ?>
+        <div class="amsearch-item"
+             data-search-block-type="<?= $escaper->escapeHtmlAttr($block->getBlockType()) ?>">
+            <?php if (!empty($item['full_path'])): ?>
+                <?= /* @noEscape */ $item['full_path'] ?>
+            <?php else: ?>
+                <a href="<?= $block->escapeUrl($block->getFullLink($item['url'])) ?>"
+                   title="<?= /* @noEscape */ $block->stripTags($item['title']); ?>"
+                   class="item-name" >
+                    <?= /* @noEscape */ $block->stripTags($item['title']); ?>
+                </a>
+                <?php if (isset($item['num_results'])):?>
+                    <span class="amasty-xsearch-num-results"><?= $escaper->escapeHtml($item['num_results']) ?></span>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if ($block->showDescription($item)):?>
+                <div class="item-description">
+                    <?= /* @noEscape */ $item['description']?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endforeach;?>
+<?php else: ?>
+    <div class="message notice">
+        <div>
+            <?= $escaper->escapeHtml(__('Your search returned no results.')) ?>
+        </div>
+    </div>
+<?php endif; ?>

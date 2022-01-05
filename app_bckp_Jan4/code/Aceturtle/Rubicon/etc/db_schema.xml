@@ -1,0 +1,18 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="rubicon_order_push_api" resource="default" engine="innodb" comment="Rubicon API Table">
+	<column xsi:type="int" name="id"  padding="10" unsigned="true" nullable="false" identity="true"
+                comment=" ID"/>
+	<column xsi:type="text" name="orderno" nullable="true" comment="Order Number"/>
+	<column xsi:type="text" name="api_response" nullable="true" comment="Api Response"/>
+	<column xsi:type="smallint" name="api_status" padding="6" unsigned="false" nullable="false" identity="false"
+                default="1" comment="API Response Status"/>
+	<column xsi:type="text" name="api_attempts" nullable="true" comment="Api number of Attemts"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment=" Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment=" Modification Time"/>
+	<constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

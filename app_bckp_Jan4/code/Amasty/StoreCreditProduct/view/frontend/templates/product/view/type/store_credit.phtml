@@ -1,0 +1,30 @@
+<?php
+/** @var Magento\Framework\Escaper $escaper */
+/** @var Magento\Framework\View\Element\Template $block */
+
+$viewModel = $block->getViewModel();
+$product = $viewModel->getProduct((int)$block->getRequest()->getParam('id'));
+$isConfigured = $viewModel->isConfigured($product);
+$defaultValues = $viewModel->getDefaultValues($product);
+?>
+<!-- ko scope: 'storeCreditProduct' -->
+<div class="amscproduct-general-container">
+    <div class="amscproduct-prices-container" data-bind="scope: 'price'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "storeCreditProduct": {
+                    "component": "Amasty_StoreCreditProduct/js/store-credit-product"
+                }
+            }
+        }
+    }
+}
+</script>

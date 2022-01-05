@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_save_before">
+        <observer name="emp_customer_save_before" instance="Aceturtle\Employeediscount\Observer\BehaviorCustomerBeforeSave"/>
+    </event>
+
+    	<!--<event name="salesrule_validator_process">
+   	    <observer name="emp_customer_add_coupon_from_cart" instance="Aceturtle\Employeediscount\Observer\TrackCoupon"/>
+	</event> -->
+	<event name="controller_action_predispatch_checkout_cart_couponPost">
+	   <observer name="emp_customer_add_coupon" instance="Aceturtle\Employeediscount\Observer\PreCoupon"/>
+	</event>
+	<!--<event name="controller_action_postdispatch_checkout_cart_couponPost">
+	   <observer name="emp_customer_add_coupon" instance="Aceturtle\Employeediscount\Observer\TrackCoupon"/>
+	</event> -->
+	 <event name="controller_action_predispatch_checkout_cart_index">
+    		<observer name="controller_action_predispatch_checkout_cart_index_promotion" instance="Aceturtle\Employeediscount\Observer\Freeproduct"/>
+	</event>
+	<event name="checkout_cart_update_items_before">
+   		<observer name="aceturtle_before_cart_save" instance="Aceturtle\Employeediscount\Observer\Freeproduct" />
+   	</event>
+	<event name="checkout_cart_product_add_after">
+   		<observer name="aceturtle_product_add_after" instance="Aceturtle\Employeediscount\Observer\Freeproduct" />
+   	</event>
+
+</config>
+
+
+

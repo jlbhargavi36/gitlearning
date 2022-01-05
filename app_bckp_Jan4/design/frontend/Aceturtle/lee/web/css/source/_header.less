@@ -1,0 +1,306 @@
+//
+//  Variables
+//  _____________________________________________
+
+@header-panel__background-color: #fff;
+@header-panel__text-color: #000;
+@indent__0: 0;
+
+// /fonts/HelveticaNeueLTStd-Roman.otf
+// /fonts/HelveticaNeueLTStd-Bd.otf
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+   
+	body{
+		letter-spacing: .4px;
+	}
+	.fixed .page-header{
+		position: fixed;
+	}
+	.page-header {
+		padding: 16px !important;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 99;
+		background: #fff;
+	 
+		.panel.wrapper .header.panel:extend(.abs-add-clearfix-desktop all) {
+	        padding-bottom: @indent__0;
+	        padding-top: @indent__0;
+	    	max-width: 100%;
+			.header.links {
+				a {
+					font-size: 0; 
+					&:hover { text-decoration: none !important; }
+					&:after{
+						font-family: @font-family__linearicons;
+						speak: none;
+						font-style: normal;
+						font-weight: 400;
+						font-variant: normal;
+						text-transform: none;
+						line-height: 1;
+						-webkit-font-smoothing: antialiased;
+						-moz-osx-font-smoothing: grayscale;
+						font-size: 16px;
+						position: relative;
+					    top: 1px;
+					    margin-left: 2px;
+					}
+				}
+				
+				a.store-locator{				
+					&::after {				
+						content: "\E833";		   
+					}			
+				}
+				.authorization-link {
+					&:after { display: none !important; }
+					a:after{
+						content: "\E82A";
+					}			
+				}	
+				.wishlist {			
+					a:after{
+						content: "\E813"; 
+						color: #000 !important;
+    					font-weight: bold;
+						font-size: 18px !important;
+						position: relative; 
+						left: 9px;
+						top: 2px;
+					}
+				}			
+			}
+			.minicart-wrapper {
+				 
+				a.showcart {
+					&:hover { text-decoration: none !important; }
+					&:before {
+						font-family: @font-family__linearicons;
+						speak: none;
+						font-style: normal;
+						font-weight: 400;
+						font-variant: normal;
+						text-transform: none;
+						line-height: 1.1;
+						-webkit-font-smoothing: antialiased;
+						-moz-osx-font-smoothing: grayscale;
+						font-size: 16px;
+						position: relative;
+						top: -10px;
+					    margin-left: 6px;
+					    content: "\E82E";
+					    color: #000;
+						font-weight: bold;
+					}
+					&.action .counter.qty {
+						color: #000 !important;
+						border-radius: 50%;
+						left: 14px;
+						position: absolute !important;
+						top: -33px;
+						font-size: 16px;
+						width: 24px;
+					}
+				}
+			}
+		}
+		 
+		.header.content {
+			 padding: 3px 15px 0;
+			 max-width: 100%;
+			 box-shadow: inset 0 -1px 0 0 #d4d0d0;
+		}
+	}
+	   
+}
+
+
+//
+//  Desktop @screen__l Large Screen from 1024
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+	.header.content {
+		display: flex;
+		.logo {
+			display: flex;
+			float: none;
+			justify-content: flex-start;
+			flex: 0 0 auto;
+		}
+		#desk-menu-wrapper {
+			display: flex;
+			justify-content: flex-start;
+			flex: 0 0 78%;
+			max-width: 78%;
+            #desk-menu {
+                margin-bottom: -28px;
+            }
+		}
+		
+		.block.block-search {
+			display: flex;
+			justify-content: flex-end;
+	
+	        .label {
+	            height: auto;
+				overflow: hidden;
+				padding: 0;
+				margin: 0;
+				width: auto;
+	            position:static;
+	            cursor: pointer;
+	            margin-top: 11px;
+	            & > span {
+				    margin: 0;
+				    text-transform: uppercase;
+				    font-size: 15px;
+				    font-weight: 700;
+				    letter-spacing: normal;
+				    position: relative;
+				    width: auto;
+				    height: auto;
+				    float: none;
+				    vertical-align: middle;
+				}
+	     	}
+	        input {
+	            .lib-input-placeholder(@form-element-input-placeholder__color);
+	            margin: 0;
+	            padding-right: 35px;
+	            position: absolute;
+	            height:38px;
+	        }
+		}
+    }
+
+    .search-autocomplete {
+        margin-top: 0;
+    }
+
+    .form.search.advanced {
+        &:extend(.abs-forms-general-desktop all);
+    }
+}
+
+
+
+//
+//  Desktop @screen__l Large Screen from 1023 to below
+//  _____________________________________________
+
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) {
+
+	.page-header {
+		.header.content {
+			position: relative;
+			text-align: center;
+			padding-top: 0 !important;
+			.logo {
+				float:none;
+				display: inline-block;
+				height: 48px;
+				width: 80px;
+				margin: 0;
+			}
+			.nav-toggle {
+				padding: .25rem .75rem;
+				font-size: 1.25rem;
+				line-height: 1;
+				background-color: transparent;
+				border: 1px solid transparent;
+				top: 7px;
+				left: 15px;
+				float: left;
+				&:before {
+					font-family: @font-family__linearicons;
+					speak: none;
+					font-style: normal;
+					font-weight: 400;
+					font-variant: normal;
+					text-transform: none;
+					line-height: 1;
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+					content: "\E871";
+					font-size: 20px;
+					color: #000;
+				}
+			}
+
+			.block-search {
+				margin-top: 0;
+				margin-bottom: 0;
+				.label {
+		           	position: absolute;
+					top: 13px;
+					left: 61px;
+					border-left: 1px solid #d4d0d0;
+					padding-left: 6px;
+					clip: auto;
+					width: auto;
+					height: 19px;
+					min-width: auto;
+					&:after {
+						font-size: 18px;
+					}
+					&.active + .control {
+						left: 0px;
+						padding: 10px 0;
+						width: 100%;
+						top: 100%;
+						.action.search {
+							display: block;
+							position: absolute !important;
+							left: auto;
+							right: 5%;
+							top: 20px;
+							padding-top: 10px;
+							padding-bottom: 10px;
+							span{ display: none;}
+						}
+					}
+				}
+	        }
+		}
+	
+		.panel.wrapper .header.panel .minicart-wrapper {
+			padding: 3px 5px !important;
+			position: absolute;
+			right: 15px;
+			z-index: 3;
+			a.showcart::before{
+				font-size: 20px !important;
+			}
+		}
+	} 
+}
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+}
+
+//
+//  Mobile @screen__m
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .page-header .block-search .label.active + .control{
+		width: 100%;
+	}
+}
+
+
+

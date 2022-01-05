@@ -1,0 +1,858 @@
+& when (@media-common = true) { 
+    .account #maincontent .columns .column.main .myaccontCustomBreadcrumbs, .guesttrack-index-index #maincontent .columns .column.main .myaccontCustomBreadcrumbs, .sales-guest-view #maincontent .columns .column.main .myaccontCustomBreadcrumbs, .sales-guest-form #maincontent .columns .column.main .myaccontCustomBreadcrumbs{
+        @media (min-width: 320px) and (max-width: 765px){ 
+            top: 0 !important;
+            left: 0 !important;
+            margin: 7px 0 0 -21px;
+            position: relative;
+        } 
+	}
+    .customer-address-form{
+        &.account{
+            #maincontent{
+                .columns{
+                    .column{
+                        &.main {
+                            .actions-toolbar{
+                                width: @fullwidth;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }  
+    .account, .guesttrack-index-index, .sales-guest-view, .sales-guest-form {
+        &.customer-address-index{
+            #maincontent{ 
+                .main{
+                    .actions-toolbar{
+                        .primary{
+                            .add{
+                                width: auto !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #maincontent{
+            .zip{
+                .message{
+                    &.warning {
+                        display: @none !important;
+                    }
+                }
+            }
+            @media @mobile320-765{ 
+                padding-top: 25px;
+                width: @fullwidth !important;
+                .columns {
+                    padding-top: 0 !important;
+                }
+            } 
+            .page-title-wrapper{
+                 padding: 15px 0px;
+                 @media @mobile320-765{ 
+                    display: @none;
+                } 
+                .page-title{
+                    font-size: 18px;
+                    color: @color_grey;
+                    margin-bottom: 0px;
+                    font-family: @font-family__base;
+                    font-weight: @font-weight__bold;
+                    padding: 0;
+                    &:after{
+                        // content: 'Account';
+                    }
+                    span{
+                        padding: 0;
+                        font-family: "Hurricane" !important;
+                        font-size: 40px;
+                        // color: #fcd7c9 !important;
+                        text-align: center;
+                        display: block;
+                        border-bottom: 2px solid #fcd7c9;
+                    }
+                }
+            }
+            .columns{
+                position: unset;
+                .column{
+                    &.main{
+                        width: @fullwidth - 25%;  
+                        margin-top: 15px;
+                        @media @mobile320-765{ 
+                            margin-top: 2px;
+                        } 
+                        .myaccontCustomBreadcrumbs{
+                            position: @pos-absolute;
+                            top: 15px;
+                            left: 18px;
+                            display: none;
+                            a{
+                                font-size: 12px;
+                                color: @color_grey;
+                                font-family: @font-family-name__base;
+                                font-weight: @font-weight__light;
+                                @media @mobile320-765{ 
+                                    font-size: 14px;
+                                } 
+                                &:hover{
+                                    @media @mobile320-765{ 
+                                        text-decoration: @none;
+                                    }
+                                }
+                                &.myaccountHomeIcon{
+                                    background: url(../images/sprite.png) no-repeat;
+                                    width: 20px;
+                                    height: 20px;
+                                    text-indent: -9999px;
+                                    display: @inline_block;
+                                    background-position:-42px -11px;
+                                }
+                            }
+                            
+                        }
+                        // dashboard Page 
+                        .block-dashboard-info{
+                            margin-bottom: 20px;
+                            height: 150px !important;
+                            background: #fcd7c9;
+                            @media @mobile320-765{ 
+                                width: @fullwidth;
+                                height: @unset !important;
+                                margin-top: 30px;
+                            }
+                            .block-content{
+                                padding:19px 25px;
+                                @media @mobile320-765{ 
+                                    padding: 10px 5px;
+                                } 
+                                .customMenuDashboard {
+                                    width: @fullwidth;
+                                    display: @flex_display;
+                                    margin-bottom: 0px ;
+                                    @media @mobile320-765{ 
+                                        position: @pos-relative;
+                                    } 
+                                    .personDefaultImageSection {
+                                        margin-right: 15px;
+                                        @media @mobile320-765{ 
+                                            margin-right: 7px;
+                                        } 
+                                        .personDefaultImage {
+                                            height: 112px;
+                                            width: 112px;
+                                            background: url(../images/aldoAllSprite.png) no-repeat;
+                                            background-position: -10px -127px;
+                                            display:@block_display;
+                                        }
+                                    }
+                                    .custmerDetails{
+                                        width: @fullwidth - 28%;
+                                        padding-top: 25px;
+                                        @media @mobile320-765{ 
+                                            padding-top: 50px;
+                                        } 
+                                        p{
+                                            font-family: @font-family__base;
+                                            font-weight: @font-weight__bold;
+                                            font-size: 14px;
+                                        }
+                                    }
+                                    .box-actions{
+                                        
+                                        @media @mobile320-765{ 
+                                            width: @fullwidth - 69%;
+                                            position: @pos-absolute;
+                                            left: 119px;
+                                            margin-top: 0 !important;
+                                        } 
+                                        .edit {
+                                            color: #fff;
+                                            font-family: 'WorkSans', sans-serif;
+                                            font-size: 12px;
+                                            margin: 0 auto;
+                                            display: inline-block;
+                                            background: #000;
+                                            padding: 6px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .customDashboardMenu{
+                            display:@flex_display;
+                            width: 87.2%;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            @media @mobile320-765{ 
+                                display: @flex_display;
+                                width: @fullwidth;
+                                flex-direction: @column;
+                            } 
+                            .menu {
+                                width: 27.4%;
+                                cursor: @pointer;
+                                background: @color_white;
+                                display:@block_display;
+                                border: 2px solid #fcd7c9;
+                                margin: 18px 0px;
+                                @media @mobile320-765{ 
+                                    width: @fullwidth;
+                                    margin: 8px 0px;
+                                } 
+                                .link-card{
+                                    display:@block_display;
+                                    padding: 12px 0px;
+                                    color: #fcd7c9;
+                                    @media @mobile320-765{ 
+                                        padding: 12px 12px;
+                                    }
+                                    &:hover{
+                                        color: @theme-primary-btn;
+                                        text-decoration: @none !important;
+                                        background-color: @color_f5f5f6;
+                                    }
+                                    .link-content{
+                                        padding: 0px;
+                                        text-align: @center;
+                                        @media @mobile320-765{ 
+                                            display: @flex_display; 
+                                            width: @fullwidth; 
+                                            flex-direction: @row;
+                                            text-align: @float_l;
+                                        } 
+                                        .spriteAll {
+                                            height: 40px;
+                                            width: 45px;
+                                            background: url(../images/aldoAllSprite.png) no-repeat;
+                                            display:@block_display;
+                                            margin: 0 auto;
+                                            @media @mobile320-765{ 
+                                                display: @inline_block;
+                                                margin: @unset;
+                                            } 
+                                            &.order{
+                                                background-position: -639px -95px;
+                                            }
+                                            &.wishlist{
+                                                background-position: -647px 1px;
+                                            }
+                                            &.addresses{
+                                                background-position: -688px 0px;
+                                            }
+                                            &.profile{
+                                                background-position: -600px 0px;
+                                            }
+                                            &.returns{
+                                                background-position: -563px 0px;
+                                            }
+                                            &.changePwd{
+                                                background-position: -524px 0px;
+                                            }
+                                        }
+                                        .menuName {
+                                            text-transform: uppercase;
+                                            margin-top: 18px;
+                                            font-family: @font-family-name__base;
+                                            font-weight: @font-weight__bold;
+                                            font-size: 15px;
+                                            margin-bottom: 4px;
+                                            display:@block_display;
+                                            @media @mobile320-765{ 
+                                                display: @inline_block;
+                                                margin-left: 5.5%;
+                                                margin-top: 11px;
+                                            } 
+                                        }
+                                    }
+                                }
+                               
+                            }
+                        }
+                        .customDashboardLogoutBtn{
+                            width: 27.5%;
+                            border-radius: 0;
+                            border: 0;
+                            background-color:@button-primary__background;
+                            border: @button-primary__border;
+                            margin: 30px 10px 30px 0px;
+                            cursor: @pointer;
+                            text-transform: @uppercase;
+                            padding: 15px;
+                            text-align: @center;
+                            @media @mobile320-765{ 
+                                width: @fullwidth; 
+                                margin: 20px 0px;
+                                box-sizing: @border-box;
+                            }
+                            .logoutButton{
+                                color: @color_white;
+                                font-size: 12px;
+                                font-weight: @font-weight__semibold;
+                                font-family: @font-family__base;
+                                &:hover{
+                                    text-decoration: @none  !important;
+                                }
+                            }
+                        }
+                        // Address Page start
+                        .block-title{
+                            strong{
+                                font-size: 20px;
+                                color: #444;
+                                font-family: @font-family__base;
+                                font-weight: @font-weight__regular;
+                            }
+                        }
+                        address{
+                            color: @color_grey;
+                            font-size: 14px;
+                            font-family: @font-family-name__base;
+                            font-weight: @font-weight__regular;
+                            padding: 5px 14px;
+                            & a{
+                                color:@color_grey;
+                                &:hover{
+                                    text-decoration: @none;
+                                }
+                            }
+                        }
+                        .action{
+                            padding: 3px 0;
+                            border: 0;
+                            color: @color_blue;
+                            text-align: @center;
+                            text-transform: @uppercase;
+                            font-family: @font-family__base;
+                            font-weight: @font-weight__bold;
+                            font-size: 12px;
+                            margin: 8px 0px;
+                            &:hover{
+                                text-decoration: @none;
+                            }
+                        }
+                        .block-addresses-default{
+                            // width: 87.2%;
+                            margin-left: 2px;
+                            @media @mobile320-765{ 
+                                width: @fullwidth; 
+                                margin-left: @unset;
+                            }  
+                            .block-title{
+                                display: none;
+                            }
+                           .block-content{
+                                color: @color_grey;
+                                font-size: 14px;
+                                font-family: @font-family__base;
+                                font-weight: @font-weight__regular;
+                                box-shadow: 0 0px 5px 0 #fcd7c9;
+                                padding: 0px;
+                                margin-left: 0px;
+                                display: @flex_display;
+                                flex-direction: @row;
+                                .box{
+                                    width: @fullwidth/2;
+                                    margin-bottom: 0px;
+                                    .box-title{
+                                        padding: 5px 0px 0px 14px;
+                                    }
+                                    .box-content {
+                                        address{
+                                            min-height: 200px;
+                                            max-height: 201px;
+                                            overflow-y: scroll;
+                                        }
+                                    }
+                                    .box-actions{
+                                        padding: 0;
+                                        box-shadow: 0 0px 5px 0 #fcd7c9;                                        display: @flex_display;
+                                        margin-top: 0px;
+                                        .action{
+                                            width: @fullwidth;
+                                        }
+                                    }
+                                    &.box-address-shipping{
+                                        border-left: @border_ddd;
+                                    }
+                                }
+                                @media @mobile320-765{ 
+                                    border: @border_d4d5d9;
+                                }  
+                           }
+                        }
+                        .block-addresses-list{
+                            margin-bottom: 2%;
+                            margin-left: 2px;
+                            @media @mobile320-765{ 
+                                width: @fullwidth;
+                                margin-bottom: 3%;
+                                margin-left: @unset;
+                               /* border: @border_d4d5d9;*/
+                            } 
+                            .block-content{
+                                .addresses{
+                                    li.item{
+                                        width: @fullwidth;
+                                        -webkit-box-shadow: 0 0px 3px 0 #ccc;
+                                        -moz-box-shadow: 0 0px 3px 0 #ccc;
+                                        box-shadow: 0 0px 3px 0 #ccc;
+                                        padding: 0px;
+                                        margin-left: 0px;
+                                        margin-bottom: 3%;
+                                        .actions{
+                                            padding: 0;
+                                            border-top: @border_ddd;
+                                            display: @flex_display;
+                                            width: @fullwidth;
+                                            .action{
+                                                width: @fullwidth/2;
+                                                &.delete{
+                                                    border-left: @border_ddd;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .actions-toolbar {
+                            width: 87.2%;
+                            display: @flex_display;
+                            flex-direction: @row;
+                            margin-left: 0px;
+                            @media @mobile320-765{ 
+                                width: @fullwidth;
+                            } 
+                            .secondary {
+                                width: @fullwidth/2;
+                                .action{
+                                    &.back{
+                                        background:@color_white;
+                                        border: @aldo_btn_border;
+                                        display: @block_display;
+                                        padding: 7px 20px;
+                                        text-align: @center;
+                                        width: @fullwidth - 60%;
+                                        float: @float_l;
+                                        margin: 8px 0;
+                                        color:@color_black;
+                                        font-size: 11px;
+                                        @media @mobile320-765{ 
+                                            width: @fullwidth - 40%;
+                                        } 
+                                        &:hover{
+                                            background: #fcd7c9;
+                                            border-color: #fcd7c9;
+                                            color: #ffffff;
+                                        }
+                                    }
+                                }
+                            }
+                            .primary { 
+                                width: @fullwidth / 2;
+                                line-height: 1.4;
+                                .action{
+                                    &.primary{
+                                        background:@button-primary__background;
+                                        border: @button-primary__border;
+                                        width: 36.5%;
+                                        display: @block_display;
+                                        padding: 11px 20px;
+                                        border-radius: @unset;
+                                        float:@float_r;
+                                        margin: 0px;
+                                        @media @mobile320-765{ 
+                                            width: @fullwidth - 23%;
+                                        } 
+                                    }
+                                }
+                            }
+                        }
+                    // Address EDIT Page
+                    .fieldset>.field:not(.choice)>.control {
+                        // width: 82.2% !important;
+                        @media @mobile320-765{ 
+                            width: @fullwidth !important;
+                        } 
+                    }
+                    .addressTitle{
+                        font-size: 20px;
+                        color: #444;
+                        font-family: @font-family__base;
+                        font-weight: @font-weight__regular;
+                        width: 87.2%;
+                    }
+                    .form-address-edit{
+                        width: @fullwidth;
+                        box-shadow: 0 0px 18px 0 #fcd7c9;
+                        padding: 15px;
+                        box-sizing: @border-box;
+                        margin-bottom: 3%;
+                        margin-left: 2px;
+                        border-radius: 10px;
+                        @media @mobile320-765{ 
+                            width: @fullwidth;
+                            margin-bottom: 7%;
+                        } 
+                        .fieldset{
+                            margin-bottom: 0px;
+                            .field{
+                                margin-bottom: 3%;
+                                @media @mobile320-765{
+                                    margin-bottom: 5%;
+                                }
+                                .label{
+                                    width: 16% !important;
+                                    font-size: 14px;
+                                    color:@color_grey;
+                                    font-family: @font-family-name__base;
+                                    font-weight:@font-weight__regular;
+                                    @media @mobile320-765{ 
+                                        width: @fullwidth !important;
+                                    } 
+                                }
+                                &.choice{
+                                    &.set{
+                                        margin-bottom: 1% ;
+                                        &:before{
+                                            width: 15.8%;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // change Password Page and Edit Profile 
+                    .myAccountForm{
+                       
+                        padding: 2px 15px 3px 15px;
+                        box-sizing: @border-box;
+                        margin: 0px auto;
+                        margin-bottom: 4%;
+                        margin-top: 13px;
+                        .fieldset{
+                                .legend{
+                                    border-bottom: 0;
+                                    span{
+                                        color: #fcd7c9;
+                                        font-size: 58px;
+                                        font-family: "Hurricane" !important;
+                                        font-weight:@font-weight__regular;
+                                        text-align: @center;
+                                        display: @block_display;
+                                        letter-spacing: 3px;
+                                    }
+                        
+                                }
+                                .field{
+                                    &.Anniversary{
+                                        .label{ 
+                                            span{
+                                                &:before{
+                                                    content: ' ';
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .label{                                           
+                                            &:after{
+                                                content:'';
+                                            }
+                                            span{
+                                                color: @color_333;
+                                                font-family: @font-family-name__base;
+                                                font-weight:@font-weight__regular;
+                                                font-size: 16px;
+                                                &:before{
+                                                    content: '*';
+                                                    color: #e02b27;
+                                                    margin: 0 5px 0 0px;
+                                                }
+                                            }
+                                        }
+                                        .control, .controls{
+                                            &.customer-dob{
+                                                #dob{
+                                                    width: @fullwidth - 8%;
+                                                    margin-right: 0px;
+                                                    @media @mobile320-765{ 
+                                                        width: @fullwidth - 14%;
+                                                    } 
+                                                }
+                                            }
+                                                input{
+                                                    &.input-text , &#dob{
+                                                        border: @aldo_footer_border_line;
+                                                        border-radius: 4px;
+                                                        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                                                        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                                                        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                                                        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                                                        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                                                    }
+                                                }
+                                                .password-strength-meter{
+                                                    font-size: 12px;                                                   
+                                                    font-family: @font-family-name__base;
+                                                    font-weight:@font-weight__regular;
+                                                }
+                                            &.editPwdControl100{
+                                                width: @fullwidth !important;
+                                            }
+                                            &.CustomControlInput{
+                                                .input-text{
+                                                    font-size: 12px;
+                                                    height: 32px;
+                                                    padding: 0 9px;
+                                                    width: @fullwidth;
+                                                    box-sizing: @border-box;
+                                                }
+                                            }
+                                        }
+                                }
+                        }
+                        .actions-toolbar{
+                            &.customBCBtn{
+                                width: @fullwidth;
+                                margin-left: 0px;
+                                flex-direction: row-reverse;
+                                .custContinueBtn {
+                                    width:@fullwidth - 40%;
+                                }
+                                .custBackBtn {
+                                    width:@fullwidth - 60%;
+                                    @media @mobile320-765{ 
+                                        width:@fullwidth - 40%;
+                                    } 
+                                }
+                            }
+                        }
+                        &.myAccountChangePwd{
+                            // max-width: 430px;
+                            @media @mobile320-765{ 
+                                width: @fullwidth;
+                                border: @border_d4d5d9;
+                                margin-left: @unset;
+                                max-width: @fullwidth;
+                            } 
+                            .fieldset{  
+                                width: 100%;
+                               .field{
+                                    
+                                    .label{
+                                        width: @fullwidth / 2;
+                                        text-align: left;
+                                    }
+                                    .control {
+                                        width: 100% !important;
+                                    }
+                               }
+                               &.info {
+                                    display: @none;
+                                }
+                            }
+                        }
+                        &.myAccountEdit{
+                            margin-left: 5px;
+                            padding-bottom: 3%;
+                            @media @mobile320-765{ 
+                                width: @fullwidth;
+                                border: @border_d4d5d9;
+                                margin-left: @unset;
+                            } 
+                            .fieldset {
+                                
+                                width: 100%;
+                                @media @mobile320-765{ 
+                                    margin-bottom: 20px;
+                                } 
+                                .field {
+                                    .label{
+                                        width: 100%;
+                                        text-align: left;
+                                        padding-right: 25px;
+                                        @media @mobile320-765{ 
+                                            width: @fullwidth /2 ;
+                                            text-align: left;
+                                        } 
+                                    }
+                                    .control{
+                                        // width: @fullwidth - 27% !important;
+                                        @media @mobile320-765{ 
+                                            width: @fullwidth !important;
+                                        } 
+                                    }
+                                    .controls{
+                                        width: @fullwidth !important;
+                                        float: @float_l;
+                                        @media @mobile320-765{ 
+                                            width: @fullwidth !important;
+                                            margin: 0 0 20px;
+                                        } 
+                                    }
+                                }
+                            }
+                            .password-info{
+                                display: @none;
+                            }
+                            .actions-toolbar{ 
+                                &.customBCBtnEditPage{
+                                    width: @fullwidth - 25%;
+                                    margin: 0 auto 0 0;
+                                    @media @mobile320-765{ 
+                                        width: @fullwidth;
+                                    } 
+                                    .primary{
+                                        .custContinueBtn{
+                                            width: @fullwidth - 55%;
+                                            @media @mobile320-765{ 
+                                                width: @fullwidth - 40%;
+                                            } 
+                                        }
+                                    }
+                                }
+                            }
+
+                            .field.mobile { overflow: hidden;
+                                display: block !important; 
+                                .controls.CustomControlInput {
+                                    margin: 0 !important;
+                                }
+                            }
+                            .verfyToggle.button {
+                                background: #000;
+                                color: #fff;
+                                padding: 8px 5px;                           
+                                cursor:pointer;  
+                            }
+                            .verifyotp {
+                                .control { position: relative; } 
+                                #otp { width: 100%; }
+                                .verfyToggle {
+                                    position: absolute;
+                                    top: 0; 
+                                    right: 0;
+                                }
+                            }
+                        }
+                    }
+                    }
+                }
+                .sidebar-main{
+                   padding: 0%;
+                    @media @mobile320-765{ 
+                     //  display: @none;
+                    } 
+                    #account-nav{
+                        background: @color_white;
+                        border-right: @border_d4d5d9;
+                        box-shadow: 3px 0px 5px rgba(0, 0, 0,0.1);
+                        text-align: @float_l;
+                        padding: 13px 25px 0px 25px;
+                        .items {
+                            display:@flex_display;
+                            flex-direction: @column;
+                            width: @fullwidth;
+                            padding-bottom: 15px;
+                            .item{
+                                &:nth-child(1){
+                                    order: 1;
+                                }
+                                &:nth-child(2){
+                                    order: 2;
+                                }
+                                &:nth-child(3){
+                                    order: 3;
+                                    &:before{
+                                        content: 'ACCOUNT';
+                                        color: #7e818c;
+                                        font-size: 16px;
+                                        text-transform: @uppercase;
+                                        padding: 7px 10px;
+                                        font-family: @font-family-name__base;
+                                        font-weight: @font-weight__semibold;
+                                    }
+                                    a , strong {
+                                        margin-top: 6%;
+                                    }
+                                }
+                                &:nth-child(4){
+                                    order: 5;
+                                }
+                                &:nth-child(5){
+                                    order: 6;
+                                }
+                                &:nth-child(6){
+                                    order: 7;
+                                }
+                                &:nth-child(7){
+                                    order: 8;
+                                    &:before{
+                                        content: 'ORDERS';
+                                        color: #7e818c;
+                                        font-size: 16px;
+                                        text-transform: @uppercase;
+                                        padding: 7px 10px;
+                                        font-family: @font-family-name__base;
+                                        font-weight: @font-weight__semibold;
+                                    }
+                                    a , strong {
+                                        margin-top: 6%;
+                                    }
+                                }
+                                &:nth-child(8){
+                                    order: 4;
+                                }
+                                &:nth-child(9){
+                                    order: 9;
+                                }
+                                &:nth-child(10){
+                                    order: 10;
+                                }
+                                a{
+                                    border-left:@unset;
+                                    color:@color_333;
+                                    font-family: @font-family-name__base;
+                                    font-weight:@font-weight__regular;
+                                    font-size: 15px;
+                                    padding: 2px 10px;
+                                    &:hover{
+                                        background: @color_white; 
+                                        color: @base-font-color;
+                                    }
+                                    &:active{
+                                        color: @color_333;
+                                    }
+                                }
+                                &.current{
+                                    strong{
+                                        border-color: @unset;
+                                        border-left:@unset;
+                                        color: @color_light_green;
+                                        font-size: 15px;
+                                        font-family: @font-family__base;
+                                        font-weight: @font-weight__bold;
+                                        padding: 5px 9px 5px 10px;
+                                    }
+                                }
+                                span{
+                                    &.delimiter{
+                                        margin: 15px 2px 20px 2px;
+                                        border-top: @border_d4d5d9;
+                                        width: 145px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+<?php 
+$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$baseurl = $storeManager->getStore()->getBaseUrl();?>
+<div class="myaccontCustomBreadcrumbs">
+<a class="myaccountHomeIcon" href = '<?php echo $baseurl ?>'> &nbsp;</a>
+<a href = '<?php echo $baseurl ?>customer/account'>  Account /</a>
+<?php 
+ if (strpos($url,'edit') !== false) {?>
+    <a href = '<?php echo $url;?>'>Profile </a>
+ <?php }
+
+ elseif (strpos($url,'address') !== false) {?>
+    <a href = '<?php echo $url;?>'>Addresses</a>
+ <?php }
+
+ elseif (strpos($url,'wishlist') !== false) {?>
+    <a href = '<?php echo $url;?>'> Wishlist </a>
+ <?php }
+
+ elseif (strpos($url,'changepassword') !== false) {?>
+    <a href = '<?php echo $url;?>'>Change Password</a>
+ <?php }
+ elseif (strpos($url,'returnorderhistory') !== false) {?>
+    <a href = '<?php echo $url;?>'> Return</a>
+ <?php }
+
+ elseif (strpos($url,'history') !== false) {?>
+    <a href = '<?php echo $url;?>'>Order History</a>
+ <?php }
+ else{
+
+ }
+?>
+</div>

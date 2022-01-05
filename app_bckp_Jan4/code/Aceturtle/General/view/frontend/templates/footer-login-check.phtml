@@ -1,0 +1,13 @@
+<?php
+$_helpercustomerlogin = $this->helper('\Aceturtle\General\Helper\Data');
+if($_helpercustomerlogin->isLoggedIn()){
+?>
+	<li><a title="Go to Manage Account" href="<?php echo $this->getUrl('customer/account') ?>">Manage Account</a></li>
+<?php
+    } else {
+      ?>
+	<li><a title="Go to Sign In" href="<?php echo $this->getUrl('customer/account/login') ?>">Sign In</a></li>
+	<li><a title="Go to Register" href="<?php echo $this->getUrl('customer/account/create') ?>">Register</a></li>
+<?php 
+    }
+?>

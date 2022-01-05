@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+	<tab id="rubicon_tab" translate="label" sortOrder="200">
+            <label>Rubicon</label>
+        </tab>
+	<section id="rubicon_order_api" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+	<label>Api Configuration</label>
+            <tab>rubicon_tab</tab>
+            <resource>Aceturtle_Rubicon::config_rubicon</resource>
+	
+	 <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Gernral Option</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+		<field id="xapikey" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>x-api-key</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                </field>
+		<field id="channelname" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Channel Name</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                </field>
+		<field id="channellocationname" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Channel Location Name</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                </field>
+         </group>
+
+	 <group id="orderdata" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+		 <label>Create Order Api configuration</label>
+		<field id="createorderurl" translate="label comment" type="text" sortOrder="9" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Create Order Url</label>
+                    <comment></comment>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+            <!-- Order Cancellation Configuration -->
+            <group id="cancelorder_grp" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order Status Api configuration</label>
+
+                <field id="orderstatusurl" translate="label comment" type="text" sortOrder="9" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Status Url</label>
+                    <comment></comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="ordercancelurl" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Cancellation URL</label>
+                    <comment></comment>
+                    <validate>required-entry</validate>
+                </field>
+                
+                <field id="cancelledorderdata" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Get Cancelled Order Url </label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                </field>
+            </group>
+
+            <!-- Order Return Configuration -->
+            <group id="returnorder_grp" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order Return Api configuration</label>
+                <field id="orderreturnlurl" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Return URL</label>
+                    <comment></comment>
+                    <!-- <validate>required-entry</validate> -->
+                </field>
+		<field id="return_days" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Initiate return within Days</label>
+                    <validate>validate-number</validate>
+                    <comment></comment>
+                </field>
+            </group>
+
+
+	 <!-- Pincode Configuration -->
+            <group id="pincodeserviceablility" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pincode Serviceability Check APIs</label>
+
+                <field id="pincodeurl" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Pincode URL</label>
+                    <comment></comment>
+                    <!-- <validate>required-entry</validate> -->
+                </field>
+
+		<field id="channelid" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Channel Id</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                </field>
+            </group>
+
+	</section>
+    </system>
+</config>

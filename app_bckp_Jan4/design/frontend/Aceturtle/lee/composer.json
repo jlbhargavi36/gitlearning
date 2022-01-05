@@ -1,0 +1,11 @@
+{
+    "name": "mytheme/theme-frontend-lee",
+    "description": "Lee store Theme for Magento 2",
+    "type": "magento2-theme",
+    "version": "1.13.3",    
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    }
+}

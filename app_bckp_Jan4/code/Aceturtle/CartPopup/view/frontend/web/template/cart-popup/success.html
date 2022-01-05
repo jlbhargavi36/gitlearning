@@ -1,0 +1,23 @@
+
+<div class="cart-popup-content">
+    <!-- ko foreach: { data: $parent.addedItems(), as: 'addedItem' } -->
+    <div class="cart-popup-item">
+        <!-- ko template: {
+            name: 'Aceturtle_CartPopup/cart-popup/success/item', data: addedItem
+        } -->
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+
+    <!-- @TODO ADD TOTALS INFORMATION IF NECESSARY -->
+    <div class="cart-popup-summary">
+        <!--<//each args="getRegion('summary')" render=""/>-->
+    </div>
+</div>
+<div class="cart-popup-title" html="title"></div>
+
+<div class="header-subtotal">
+</i><span class="header-subtotal-price" html="subtotal"></span>
+</div>
+
+<div class="cart-popup-related" data-bind="html: relatedProductsBlock, afterRender: $parent.triggerContentUpdated" if="relatedProductsBlock"></div>

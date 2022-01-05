@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <head>
+        <title>My Account</title>
+    </head>
+    <body>
+        <!-- My credit card link -->
+        <referenceBlock name="customer-account-navigation-my-credit-cards-link" remove="true"/>
+        <!-- Store credit -->
+        <referenceBlock name="customer-account-navigation-customer-balance-link" remove="true"/>
+        <!-- Downloadable product link -->
+        <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
+        <!-- Subscription link -->
+        <referenceBlock name="customer-account-navigation-newsletter-subscriptions-link" remove="true"/>
+        <!-- Billing agreement link -->
+        <referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
+        <!-- Wishlist Sidebar -->
+        <referenceBlock name="multiple-wishlist_sidebar" remove="true" />
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+        <referenceBlock name="catalog.compare.sidebar" remove="true" />
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <!-- My account -->
+        <referenceBlock name="customer-account-navigation-product-reviews-link" remove="true"/>
+        <referenceBlock name="customer-account-navigation-account-link">
+           <arguments>
+               <argument name="label" xsi:type="string" translate="true">Overview </argument>
+           </arguments>
+        </referenceBlock>
+        <!-- Custom Menu for return cancel and order history Start -->
+        <referenceBlock name="customer_account_navigation">
+      <block class="Magento\Framework\View\Element\Html\Link\Current" name="change-password" after="customer-account-navigation-wish-list-link">
+            <arguments>
+               <argument name="path" xsi:type="string">Rubicon/index/changepassword</argument>
+               <argument name="label" xsi:type="string"> Change Password</argument>
+            </arguments>
+        </block>
+        <block class="Magento\Framework\View\Element\Html\Link\Current" name="cancel-order">
+            <arguments>
+               <argument name="path" xsi:type="string">Rubicon/index/cancelorderhistory</argument>
+               <argument name="label" xsi:type="string"> Cancelled Orders</argument>
+            </arguments>
+        </block>  
+         <block class="Magento\Framework\View\Element\Html\Link\Current" name="return-order">
+            <arguments>
+               <argument name="path" xsi:type="string">Rubicon/index/returnorderhistory</argument>
+               <argument name="label" xsi:type="string"> Returned Orders</argument>
+            </arguments>
+        </block> 
+        </referenceBlock>
+        <!-- Custom Menu for return cancle and order history end  -->
+        <!-- Change Account information -->
+        <referenceBlock name="customer-account-navigation-account-edit-link">
+           <arguments>
+               <argument name="label" xsi:type="string" translate="true">Profile</argument>
+               <argument name="sortOrder" xsi:type="number">190</argument>
+           </arguments>
+        </referenceBlock>
+        <!-- Adresses -->
+        <referenceBlock name="customer-account-navigation-address-link">
+           <arguments>
+               <argument name="label" xsi:type="string" translate="true">Addresses</argument>
+               <argument name="sortOrder" xsi:type="number">170</argument>
+           </arguments>
+       </referenceBlock>
+        <!-- wish list -->
+        <referenceBlock name="customer-account-navigation-wish-list-link">
+            <arguments>
+                <argument name="label" xsi:type="string" translate="true">Wishlist </argument>
+                <argument name="sortOrder" xsi:type="number">150</argument>
+            </arguments>
+        </referenceBlock>
+       <!-- order History -->
+        <referenceBlock name="customer-account-navigation-orders-link">
+            <arguments>
+                <argument name="label" xsi:type="string" translate="true">Order History</argument>
+                <argument name="sortOrder" xsi:type="number">20</argument>
+            </arguments>
+         </referenceBlock>
+    </body>
+</page>

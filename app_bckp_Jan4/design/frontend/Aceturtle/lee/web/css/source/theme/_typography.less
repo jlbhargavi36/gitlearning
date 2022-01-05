@@ -1,0 +1,105 @@
+.example-typography() {
+    // This is an example of how to set a typographic style for any given element.
+    #banner h1 {
+        .lib-typography(12px, red, arial, bold, 1, normal)
+    }
+}
+
+@font-family-name__base: 'WorkSans', sans-serif;
+@font-family-name__hurricane: 'Hurricane';
+@font-family-name__helvetica: 'HelveticaNeueLTStd';
+@font-family-name__linearicons: 'Linearicons';
+@base__font-weight: 400;
+@base__size-ratio: 1.2; // see https://type-scale.com/
+
+
+@font-weight__thin: 100;
+@font-weight__extralight: 200;
+@font-weight__light: 300;
+@font-weight__regular: 400;
+@font-weight__medium: 500;
+@font-weight__semibold: 600;
+@font-weight__bold: 700;
+@font-weight__extrabold: 800;
+@font-weight__black: 900;
+
+& when (@media-common = true) {
+
+    .lib-font-face(
+        @family-name: @font-family-name__base,
+        @font-path: '@{baseDir}fonts/Arial/Arial',
+        @font-weight: @font-weight__regular,
+        @font-style: normal,
+        @font-display: swap
+    );
+
+    .lib-font-face(
+        @family-name: @font-family-name__base,
+        @font-path: '@{baseDir}fonts/Arial/Arial',
+        @font-weight: @font-weight__bold,
+        @font-style: normal,
+        @font-display: swap
+    );
+
+    .lib-font-face(
+        @family-name: @font-family-name__helvetica,
+        @font-path: '@{baseDir}fonts/HelveticaNeues/regular/HelveticaNeueLTStd-Roman',
+        @font-weight: @font-weight__light,
+        @font-style: normal,
+        @font-display: swap
+    );
+
+    .lib-font-face(
+        @family-name: @font-family-name__helvetica,
+        @font-path: '@{baseDir}fonts/HelveticaNeues/regular/HelveticaNeueLTStd-Roman',
+        @font-weight: @font-weight__regular,
+        @font-style: normal,
+        @font-display: swap
+    );
+
+    .lib-font-face(
+        @family-name: @font-family-name__helvetica,
+        @font-path: '@{baseDir}fonts/HelveticaNeues/regular/HelveticaNeueLTStd-Roman',
+        @font-weight: @font-weight__medium,
+        @font-style: normal,
+        @font-display: swap
+    );
+
+    .lib-font-face(
+        @family-name: @font-family-name__helvetica,
+        @font-path: '@{baseDir}fonts/HelveticaNeues/regular/HelveticaNeueLTStd-Roman',
+        @font-weight: @font-weight__semibold,
+        @font-style: normal,
+        @font-display: swap
+    );    
+
+    .lib-font-face(
+        @family-name: @font-family-name__helvetica,
+        @font-path: '@{baseDir}fonts/HelveticaNeues/bold/HelveticaNeueLTStd-Bd',
+        @font-weight: @font-weight__bold,
+        @font-style: normal,
+        @font-display: swap
+    ); 
+    
+    .lib-font-face(
+        @family-name: @font-family-name__linearicons,
+        @font-path: '@{baseDir}fonts/Linearicons/Linearicons-Free',
+        @font-weight: @font-weight__regular,
+        @font-style: normal,
+        @font-display: swap
+    );    
+    .lib-font-face(
+        @family-name: @font-family-name__hurricane,
+        @font-path: '@{baseDir}fonts/Hurricane/Hurricane-Regular',
+        @font-weight: @font-weight__regular,
+        @font-style: normal,
+        @font-display: swap
+    ); 
+    .lib-font-face(
+        @family-name: @font-family-name__base,
+        @font-path: '@{baseDir}fonts/WorkSans/WorkSans',
+        @font-weight: @font-weight__regular,
+        @font-style: normal,
+        @font-display: swap
+    ); 
+}

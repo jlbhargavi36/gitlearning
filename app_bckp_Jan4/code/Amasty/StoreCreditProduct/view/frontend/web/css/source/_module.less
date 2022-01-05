@@ -1,0 +1,227 @@
+//
+//  Store Credits Product Page
+//  ____________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+
+@amscproduct-button__border: 1px solid #dadada;
+@amscproduct-button__color: #1e79c2;
+@amscproduct-field__border: 1px solid #d4d4d4;
+@amscproduct-field__color: #d4d4d4;
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amscproduct-prices-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .amscproduct-prices-container {
+        & {
+            position: relative;
+            margin-top: 25px;
+            border-top: 1px solid #c1c1c1;
+        }
+
+        .amscproduct-title {
+            display: block;
+            margin: 20px 0 10px;
+            color: #363636;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 19px;
+        }
+
+        > .amscproduct-button {
+            & {
+                box-sizing: border-box;
+                padding: 7px 10px;
+                border: @amscproduct-button__border;
+                border-radius: 2px;
+                background: #eee;
+                font-size: 14px;
+                transition: background-color .3s ease;
+            }
+
+            &:hover {
+                background-color: @amscproduct-button__color;
+                box-shadow: 0 2px 4px rgba(45, 147, 226, .1);
+                color: #fff;
+            }
+        }
+
+        .amscproduct-radio {
+            display: none;
+        }
+
+        .amscproduct-input.-hidden {
+            position: absolute;
+            display: inline;
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+    }
+
+    .amscproduct-field-container {
+        flex-basis: 48%;
+        margin-top: 0;
+        border: none;
+        text-align: left;
+    }
+
+    .amscproduct-field-block {
+        & {
+            display: block;
+        }
+
+        > .amscproduct-button {
+            padding: 7px 17px;
+            border: @amscproduct-field__border;
+            border-left: none;
+            border-radius: 0 2px 2px 0;
+        }
+
+        > .amscproduct-field {
+            & {
+                box-sizing: border-box;
+                border: @amscproduct-field__border;
+                border-radius: 2px;
+                background: #fff;
+            }
+
+            /* Edge */
+            &::-webkit-input-placeholder {
+                color: @amscproduct-field__color;
+            }
+
+            /* Internet Explorer 10-11 */
+            &:-ms-input-placeholder {
+                color: @amscproduct-field__color;
+            }
+
+            &::placeholder {
+                color: @amscproduct-field__color;
+            }
+
+            &:focus {
+                z-index: 5;
+            }
+        }
+
+        > .amscproduct-field.mage-error {
+            border-color: #ed8380;
+        }
+
+        &.-double {
+            display: flex;
+        }
+
+        &.-double > .amscproduct-field {
+            border-radius: 2px 0 0 2px;
+        }
+    }
+
+    .amscproduct-radio-prices {
+        & {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        > .amscproduct-button {
+            margin: 0 10px 5px 0;
+        }
+    }
+
+    .amscproduct-label-block {
+        & {
+            position: relative;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        &.-price {
+            & {
+                box-sizing: border-box;
+                margin: 0 10px 5px 0;
+                padding: 6px 8px;
+                border: @amscproduct-button__border;
+                background-color: #f0f0f0;
+                font-size: 14px;
+                transition: background-color .3s ease, border .3s ease;
+            }
+
+            &.-active,
+            &:hover {
+                border: 1px solid @amscproduct-button__color;
+                background-color: @amscproduct-button__color;
+                box-shadow: 0 2px 4px rgba(45, 147, 226, .1);
+                color: #fff;
+            }
+        }
+    }
+
+    .amscproduct-general-container {
+        & {
+            margin-bottom: 20px;
+        }
+
+        .amscproduct-warning {
+            color: #e02b27;
+            font-size: 12px;
+        }
+    }
+
+    // override magento style start
+    .amscproduct-page-product {
+        .product-info-main .price-final_price .price-wrapper .price {
+            color: #575757;
+            font-weight: 600;
+            font-size: 36px;
+            line-height: 36px;
+        }
+
+        .amscproduct-price-container .amscproduct-price-multiple.-hide {
+            display: none;
+        }
+
+        .amscproduct-price-container .price-final_price {
+            &.-hide {
+                display: none;
+            }
+
+            &.-multiple .price-wrapper .price {
+                font-size: 24px;
+                line-height: 24px;
+            }
+        }
+
+        .amscproduct-price-container .price-wrapper + .price-wrapper {
+            margin-left: 5px;
+        }
+    }
+
+    .amscproduct-page-product .product-info-main {
+        .product-reviews-summary {
+            float: none;
+        }
+
+        .product-info-price {
+            margin-bottom: 0;
+            border: 0;
+        }
+
+        .product-add-form {
+            clear: none;
+            margin-bottom: 20px;
+            padding-top: 0;
+            border: 0;
+        }
+    }
+    // (END) override magento style
+}

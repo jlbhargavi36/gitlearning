@@ -1,0 +1,57 @@
+<div class="popUpOverlay"></div>
+<div  id="<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'cancel';?>" style="display: none;" class="orderCancel">
+    <div class="pop-inner">
+        <form method="post" class="return-infod" id="cancel-request-<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku'])?>" data-mage-init='{"validation": {}}'>
+        <div class="popUpWrapper">
+            <h3 class="popUpWrapperTitle">Cancellation Request</h3>
+            <p class="popUpWrapperContent">Are you sure you want to cancel this item ?*</p>
+        </div>
+            <input type="hidden" class="form-control" name="sku" id="<?php echo $items['sku']?>" value= "<?php echo $items['sku']?>"/>
+            <input type="hidden" class="form-control" name="shipment_no" id="<?php echo $shipmentInfo[0]['shipment_no'];?>" value= "<?php echo $shipmentInfo[0]['shipment_no'];?>"/>
+            <input type="hidden" class="form-control" name="qty_to_cancel" id="<?php echo $items['qty_ordered']; ?>" value= "<?php echo $items['qty_ordered']; ?>"/>
+            <input type="hidden" class="form-control" name="created_by" id="<?php echo $billingaddress['firstname']?>" value= "<?php echo $billingaddress['firstname']?>"/>                  
+            <div class="cancel-PopupBtn">
+                <button type="submit" class="popupBtn">CONFIRM</button>
+                <button type="button" class="popupBtn PopupBtnClose" id="<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'cancelClose'?>">CLOSE</button>
+            </div>
+        </form>
+    </div>           
+</div>  
+                
+<script type="text/javascript">
+    require(['jquery'], function (jQuery) {
+        jQuery(document).ready(function () {
+            jQuery(".<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'cancel';?>").click(function() {
+                jQuery("#<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']).'cancel';?>").show();
+            });
+            jQuery("#cancel-request-<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']); ?>").submit(function(e){
+                console.log("form submited");
+                //validates form and returns boolean
+                var canform =  jQuery("#cancel-request-<?php echo preg_replace('/[^a-zA-Z0-9_ -]/s','',$items['sku']); ?>").validation('isValid'); 
+                if(canform){
+                    jQuery.ajax({
+                        url:"<?php echo $block->getBaseUrl().'Rubicon/Index/cancel' ?>",
+                        type: "POST",
+                        data: jQuery(this).serialize(),
+                        dataType: 'html',
+                            success: function(response){
+                            jQuery('.orderCancel').hide();
+                            jQuery('.popUpOverlay').hide();
+                            window.location.href ='<?php echo $block->getBaseUrl().'Rubicon/index/cancelorderhistory/' ?>';    
+                        }
+                    });
+                }
+                return false; 
+            });
+        });
+        // Pop up to close on click of Close Button
+        jQuery('.PopupBtnClose').click(function(){
+            jQuery('.orderCancel').hide();
+            jQuery('.popUpOverlay').hide();
+        });
+        // Over lay to show when click on cancel Button
+        jQuery('.openModelPopup').click(function(){
+            jQuery('.popUpOverlay').show();
+        });
+    });
+    </script>

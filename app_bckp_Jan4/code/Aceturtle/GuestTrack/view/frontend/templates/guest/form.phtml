@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php $orderHelper = $this->helper('Aceturtle\GuestTrack\Helper\Data');
+ ?>
+<!--<h2><span><?= /* @escapeNotVerified */ __('Order Information') ?></span></h2>-->
+<form class="form form-orders-search" id="trackorder_form" name="trackorder_form" data-mage-init='{"ordersReturns":{}, "validation":{}}' action="<?= /* @escapeNotVerified */ $block->getActionUrl() ?>"
+      method="post" name="guest_post">
+    <fieldset class="fieldset">   
+        <div class="field id required">    
+            <label class="label" for="oar-order-id"><?= /* @escapeNotVerified */ __('Enter your Order Number or Phone Number') ?></label>
+
+            <div class="control">
+                <input type="text" class="input-text numberValidationMethod" id="oar-order-id" name="oar_order_id" placeholder="Enter your Order Number or Phone Number" data-validate="{required:true, 'validate-number':true}" value="<?php echo $orderHelper->getOrderId(); ?>" />
+            </div>
+        </div>        
+    </fieldset>
+    <?php echo $block->getChildHtml('form.additional.info'); ?>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="<?= /* @escapeNotVerified */ __('Continue') ?>" class="action submit primary">
+                <span><?= /* @escapeNotVerified */ __('Submit') ?></span>
+            </button>
+        </div>
+    </div>
+</form>

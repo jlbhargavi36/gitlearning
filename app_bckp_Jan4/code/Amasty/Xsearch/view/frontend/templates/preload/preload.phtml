@@ -1,0 +1,13 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<div class="amsearch-additional-content">
+    <div class="amsearch-leftside-sidebar" data-amsearch-js="leftside-sidebar">
+        <?= $block->getChildHtml('sidebar') ?>
+    </div>
+    <?= $block->getChildHtml('main_panel') ?>
+</div>

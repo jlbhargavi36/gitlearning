@@ -1,0 +1,28 @@
+.scrollup {
+    bottom: 82px;
+    cursor: pointer;
+    font-weight: 600;
+    display: none;
+    width:  50px;
+    position: fixed;
+    text-align: center;
+    transition: background-color .15s ease-in-out;
+    height: 50px;
+    box-shadow: 0 2px 4px 0 #c5a4a4;
+    z-index: 9;
+    padding: 4px;
+    background: #fed7c9;    
+    color: white;
+    line-height: 45px;
+}
+.scrollup:after{
+    content: "\E877";
+    font-family: 'Linearicons';
+    text-transform: none;
+    font-size: 18px;
+    text-decoration: none; 
+}
+.scrollup:hover {  
+    background: gainsboro;
+    color: rgb(0, 0, 0);
+}

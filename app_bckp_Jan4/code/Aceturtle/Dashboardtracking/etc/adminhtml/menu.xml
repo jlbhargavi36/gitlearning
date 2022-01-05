@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+   <menu>
+       <add id="Aceturtle_Dashboardtracking::menu"
+           title="DashBoard Tracking" module="Aceturtle_Dashboardtracking"
+           sortOrder="10"
+          resource="Aceturtle_Dashboardtracking::menu"
+           />
+              <!-- START: new node -->  
+       <add id="Aceturtle_Dashboardtracking::menu_one"
+           title="Live DashBoard Count" module="Aceturtle_Dashboardtracking"
+           sortOrder="10" parent="Aceturtle_Dashboardtracking::menu"
+           action="dashboardtracking/create/index"
+           resource="Aceturtle_Dashboardtracking::menu_one"
+           />
+       <!-- END:   new node -->
+    
+   </menu>
+</config>

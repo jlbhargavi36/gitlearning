@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Email/etc/email_templates.xsd">
+    <template id="Send_emp_verification_email" label="Employee verification Email" file="Send_emp_verification_email.phtml" type="html" module="Aceturtle_Employeediscount" area="frontend"/>
+</config>

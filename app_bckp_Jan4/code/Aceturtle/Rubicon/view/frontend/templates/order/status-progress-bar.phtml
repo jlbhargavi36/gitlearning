@@ -1,0 +1,135 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$shipmentStatus  = $this->getShipmentStatus();
+$shipmentNo = $this->getShipmentNo();
+$statusType = $this->getStatusType();
+
+
+$shipmentInfo = $this->getShipmentInfo();
+/* echo '<pre>';
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/shipmentInfo.log');
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
+            $logger->info(print_r($shipmentInfo));
+echo '</pre>'; */
+?>
+<?php
+//$statusType = "shipment";
+switch ($statusType) {
+    case "shipment":
+        $realStatus = $shipmentStatus;
+        $currentStatus = 'Ordered';
+        //$realStatus = "ACCEPTED";
+        $statusLabels = ['Ordered','Confirmed','Shipped','Delivered'];
+        $orderedStatus = ['CREATED','Created','Ordered','Created','Confirmed','To Be Allocated','Allocated','To Be Accepted'];?>
+        <div id = 'placeorder-status'>
+            <?php
+        if(in_array($realStatus, $orderedStatus)) { $currentStatus = 'Ordered';
+        ?>
+       <!-- <span class= 'order-status'>Ordered</span> -->
+         <?php } 
+        $confirmedStatus = ['Manifested','Dispatched','Ready To Dispatch','Accepted','ACCEPTED','TO BE PACKED','TO BE INVOICE','To Be Invoice','Invoiced','Invoice Printed','To Be Packed','Packed','Ready To Ship'];
+        if(in_array($realStatus, $confirmedStatus)) { $currentStatus = 'Confirmed';
+        ?>
+        <!-- <span class= 'order-status'>Confirmed</span> -->
+         <?php } 
+        $shippedStatus = ['SHIPPED','Shipped','RTO','In Transit','RTO Delivered','Lost Shipment','Handover','To Be Out For Delivery','Out For Delivery','To Be Delivered'];
+        if(in_array($realStatus, $shippedStatus)) { $currentStatus = 'Shipped';
+        ?>
+        <!-- <span class= 'order-status'>Shipped</span> -->
+         <?php } 
+        $deliveredStatus = ['DELIVERED','Delivered','Handover Complete'];
+        if(in_array($realStatus, $deliveredStatus)) { $currentStatus = 'Delivered'; 
+        ?>
+        <!-- <span class= 'order-status'>Delivered</span> -->
+         <?php }?>
+         </div>
+         
+        <?php
+        break;
+    default:
+        $statusLabels = ['Ordered','Confirmed','Shipped','Delivered'];
+        $currentStatus = "Ordered";
+}
+?>
+
+<?php 
+    $orderDate = $shipmentInfo['created_at'];
+    $confirmDate = null;
+    $shippedDate = null;
+    $deliveredDate = null;
+if(isset($shipmentInfo['action_history'])){
+    $actionHistory = $shipmentInfo['action_history'];
+
+    foreach($shipmentInfo['action_history'] as $ship):
+        //echo $ship['status'].'<br/>';
+        if(!isset($confirmDate) && in_array($ship['status_name'], $confirmedStatus)) {
+            $confirmDate = $ship['action_at'];
+        } else if(!isset($shippedDate) && in_array($ship['status_name'], $shippedStatus)) {
+            $shippedDate = $ship['action_at'];
+        } else if(!isset($deliveredDate) && in_array($ship['status_name'], $deliveredStatus)) {
+            $deliveredDate = $ship['action_at'];
+        }
+    endforeach;
+}
+ ?>
+<?php 
+
+if(in_array($currentStatus, $statusLabels)) { 
+
+?>
+<div class="orderhistory-status">
+    <ol class="progtrckr" data-progtrckr-steps="4">
+        <li class="progtrckr-done">
+            <span>Ordered</span>
+            <?php if($orderDate){ ?>
+                <span class="order-placed formate"><?php  echo $block->getFormatedDateTime($orderDate); ?></span> 
+            <?php } ?>
+        </li>
+
+        <li class="<?php
+        if ($currentStatus == 'Confirmed' || $currentStatus == 'Shipped' || $currentStatus == 'Delivered') {
+            echo 'progtrckr-done';
+        } else {
+            echo 'progtrckr-todo';
+        }
+        ?>"><span>Confirmed</span>
+            <?php if($confirmDate){ ?>
+                <span class="order-confirm formate">
+                    <?php echo $block->getFormatedDateTime($confirmDate) ?>
+                </span> 
+            <?php } ?>
+        </li>
+        <li class="<?php
+        if ($currentStatus == 'Shipped' || $currentStatus == 'Delivered') {
+            echo 'progtrckr-done';
+        } else {
+            echo 'progtrckr-todo';
+        }
+        ?>"><span>Shipped</span>
+            <?php if($shippedDate){ ?>
+                <span class="order-shipped formate">
+                <?php  echo  $block->getFormatedDateTime($shippedDate) ?>
+                </span> 
+            <?php } ?>
+        </li>
+        <li class="<?php
+        if ($currentStatus == 'Delivered') {
+            echo 'progtrckr-done';
+        } else {
+            echo 'progtrckr-todo';
+        }
+        ?>"><span>Delivered</span>
+            <?php if($deliveredDate){?>
+                <span class="order-delivered formate">
+                    <?php echo $block->getFormatedDateTime($deliveredDate) ?>
+                </span> 
+            <?php } ?>
+        </li>
+    </ol>
+</div>
+<?php } ?>

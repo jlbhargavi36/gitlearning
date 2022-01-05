@@ -1,0 +1,12 @@
+<?php $product = $block->getProduct();
+?>
+<div id="ajax-goto">
+    <a class="goto-category"href = '<?php echo $_SERVER['HTTP_REFERER'];?>'>
+    <span class = "current-cat" style = "display:none">
+        <?php
+        echo $_SERVER['HTTP_REFERER'];
+            ?>
+    </span>
+    </a>
+</div>
+

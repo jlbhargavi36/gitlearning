@@ -1,0 +1,22 @@
+{
+    "name": "amasty\/module-shopby-premium",
+    "description": "Improved Layered Navigation Premium by Amasty",
+    "require": {
+        "php": "^7.3.0",
+        "amasty\/base": ">=1.12.18",
+        "amasty\/ajax-scroll": ">=1.4.5",
+        "amasty\/shopby": ">=2.17.2",
+        "amasty\/custom_product_sorting": ">=1.0.6",
+        "amasty\/module-shop-by-quick-config": ">=1.0.0"
+    },
+    "type": "magento2-module",
+    "version": "1.11.0",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Amasty\\ShopbyPremium\\": ""
+        }
+    }
+}

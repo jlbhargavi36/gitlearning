@@ -1,0 +1,158 @@
+ <?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+/** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+/** Apply filters here */
+$collection = $productCollection->addAttributeToSelect('*')
+        ->load();
+//$cnt=count($collection);      echo $cnt;  
+  /*  foreach ($collection as $product){
+         echo 'Name  =  '.$product->getName().'<br>';
+         echo 'Name  =  '.$product->getSku().'<br>';
+         echo 'Name  =  '.$product->getDescription().'<br>';
+
+    }  */
+    
+$categoryFactory = $objectManager->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+$categories = $categoryFactory->create()                              
+    ->addAttributeToSelect('*');
+    //->setStore($this->_storeManager->getStore()); //categories from current store will be fetched
+$categories =$categories->setorder("path","ASC");
+
+$stockregistry=$objectManager->create('\Magento\CatalogInventory\Model\StockRegistry'); 
+
+$cntskuTotal=0;
+$categoryidlist=[];
+$cntstyleconfigTotal=0;
+
+//echo '<table><tr><td>';
+
+echo "<table class='dashtrackdetail'>"; 
+          
+foreach ($categories as $category){
+ 
+  //   echo $category->getId();
+
+      $categoryidlist[]=$category->getId();
+         $categoryProductsdata = $block->getProductsku($category->getId());
+         $ProductInventorydata = $block->getProductInventory($category->getId()); 
+         $productstyleoptionconfig=$block->getconfigProductByCategory($category->getId());
+         $cntsku=$categoryProductsdata;
+         
+         
+
+        if(count(explode("/",$category->getPath()))>2) {   
+       if($ProductInventorydata>0) {
+       $subcatspace="";
+       if(count(explode("/",$category->getPath()))>3)
+       {
+       for($s=0;$s<=count(explode("/",$category->getPath()));$s++) {
+       $subcatspace=$subcatspace."&nbsp&nbsp";
+       }
+       }
+          
+         $cntinventory=$ProductInventorydata;
+
+        $cntconfig=0;       
+       foreach($productstyleoptionconfig as $styleconfig) {
+             $_children = $styleconfig->getTypeInstance()->getUsedProducts($styleconfig);
+              $inStock = [];
+             foreach($_children as $_child) {
+             $stockItem = $stockregistry->getStockItem($_child->getId(), 1);
+
+             if($stockItem->getIsInStock()) {
+              $inStock[] = $_child;
+             }
+             }
+             if(!empty($inStock)) {
+            $cntconfig=$cntconfig+1;
+             
+             }
+       
+        // $cntconfig=$styleconfig["cntInventoryconfig"];
+         $cntstyleconfigTotal=$cntstyleconfigTotal+$cntconfig;
+      
+
+       }
+       echo "<tr><td align='left'>".$subcatspace.$category->getName()."</td><td align='right'>".$cntconfig."</td>";        
+       echo "<td width='100px'></td><td align='left'>".$subcatspace.$category->getName()."</td><td align='right'>".$cntinventory."</td><td width='100px'></td><td align='left'>".$subcatspace.$category->getName()."</td><td align='right'>".$cntsku."</td></tr>"; 
+
+         
+         }
+         }
+
+         
+
+
+
+   }  
+ echo "</table>";
+//echo "<tr><td>";
+//echo "</td></tr></table>";
+
+
+     $categoryTotalProductsdata = $block->getProductsku('');
+     $ProductTotalInventorydata = $block->getProductInventory(''); 
+     $productTotalstyleoptionconfig=$block->getconfigProductByCategory('');
+     $totalsku=$categoryTotalProductsdata;
+     
+     
+     $totalinventory=$ProductTotalInventorydata;
+
+     
+     $totaloptionconfig=0;
+    foreach($productTotalstyleoptionconfig as $proctotaloptionconfig) {
+    
+    $_children = $proctotaloptionconfig->getTypeInstance()->getUsedProducts($proctotaloptionconfig);
+                    $inStock = [];
+             foreach($_children as $_child) {
+                         $stockItem = $stockregistry->getStockItem($_child->getId(), 1);
+
+             if($stockItem->getIsInStock()) {
+              $inStock[] = $_child;
+             }
+             }
+             if(!empty($inStock)) {
+            $totaloptionconfig=$totaloptionconfig+1;
+             
+             }
+          }
+
+
+echo "<table class='dashtracktotal' id='IDdashtracktotal'>";
+
+echo  "<tr style='display: table-row;'><th align='center' colspan='2'>";
+echo  " No. of option live</th><th width='100px'></th><th colspan='2' width='300px'>Inventory Live</th><th width='100px'></th><th width='200px'>SKU’s</th>"; 
+echo  "</tr>";
+
+echo "<tr style='display: table-row;'>";
+
+echo "<th align='center' colspan='2' width='200px'><button class='dashtrackbutton'>".$totaloptionconfig."</button>";
+echo "<br>";
+echo "<span style='font-size: 47px'>↓</span>";
+echo "</th>";
+echo  "<th width='100px'></th><th align='center' colspan='2' width='200px'><button class='dashtrackbutton'>".explode('.',$totalinventory)[0]."</button>";   
+echo "<br>";
+echo "<span style='font-size: 47px'>↓</span>";
+echo "</th>"; 
+echo  "<th width='100px'></th><th align='center' colspan='2' width='200px'><button class='dashtrackbutton'>".$totalsku."</button>";   
+echo "<br>";
+echo "<span style='font-size: 47px'>↓</span>";
+echo "</th>";
+echo  "</tr>";
+   
+echo "</table>";
+
+
+
+
+
+//echo "</td></tr>";
+    
+//echo "</table>";    
+
+//echo "</td></tr></table>";
+
+
+
+    ?>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="amscproduct-page-product"/>
+        <referenceBlock name="product.price.final">
+            <arguments>
+                <argument name="is_product_from" xsi:type="string">1</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="product.info.form.options">
+            <block name="product.info.amstorecredit.options"
+                   before="-"
+                   template="Amasty_StoreCreditProduct::product/view/type/store_credit.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Amasty\StoreCreditProduct\ViewModel\StoreCreditProduct</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="product.info.form.content">
+            <block name="product.info.amstorecredit"
+                   before="-"
+                   template="Amasty_StoreCreditProduct::product/view/type/store_credit.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Amasty\StoreCreditProduct\ViewModel\StoreCreditProduct</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

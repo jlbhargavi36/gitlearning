@@ -1,0 +1,227 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+/** @var \Magento\Customer\Block\Form\Login $block */
+?>
+
+<?php 
+$counter = $this->helper('\Magento\Checkout\Helper\Cart'); 
+$items =  $counter->getItemsCount();
+
+$helpergroup = $this->helper('Aceturtle\General\Helper\Data');
+$enableOtpLogin = $helpergroup->getGeneralConfig('enable_otp_login');
+
+?>
+<div class="login-register-container">
+    <div class="register-container">
+	
+<?php if($enableOtpLogin==1){ ?>
+    <div class="login-title">
+        <strong class="login-heading"><?= $block->escapeHtml(__('OR')) ?></strong>
+    </div>
+<?php } ?>
+<div class="login-inner-container">
+    
+        <div class="column2">
+                <ul class="container-label">
+                     <li class="email-login active-tab" data-tab="tab-1"><?= $block->escapeHtml(__('Login with e-mail')) ?></li>
+                </ul>
+        </div>
+        
+        <div class="column2">
+            <ul class="container-label">
+                <?php if($enableOtpLogin==1){ ?> <li class="otp-login" data-tab="tab-2"><?= $block->escapeHtml(__('Login with OTP')) ?></li><?php } ?>   
+            </ul>
+       </div>
+
+       <div id="tab-1" class="login-with-emial tab-content-section active-tab">
+            <div class="signUpIcon">&nbsp;</div>
+            <form class="form form-email-login"
+               action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+               method="post"
+               id="login-form"
+               data-mage-init='{"validation":{}}'>
+                <fieldset class="fieldset email-login">
+                    <div class="field email required">
+                        <div class="controls">
+                            <div class="loginSpriteRow" >
+                                <span class="loginSprite mailIcon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                            </div>
+                            <input name="login[username]" placeholder="E-Mail Address"  id="email" type="email" class="input-text" data-validate="{required:true, 'validate-email':true}"> 
+                        </div>
+                    </div>
+                    <div class="field password required showPwd">
+                        <div class="controls">
+                            <div class="loginSpriteRow">
+                                <span class="loginSprite passWordIcon"><i class="fa fa-key" aria-hidden="true"></i></span>
+                            </div>
+                            <div class="passWordShowHide">
+                                <span class="passWordToggle">Show</span>
+                            </div>
+                            <input name="login[password]" type="password" placeholder="Password" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}">
+                            
+                        </div>
+                    </div>
+                    <div class="button-container" id="main_login">
+                     <div class="primary"><button type="submit" class="action register primary"><span><?= $block->escapeHtml(__('Login')) ?></span></button></div>
+                        <div class="secondory-link">
+                            <a class="forgot-link" href="<?php echo $block->getUrl('customer/account/forgotpassword') ?>" title="<?php echo __('Forgot Password') ?>"><?php echo __('Forgot Password') ?></a>
+                            <div class="not-register-user-link">
+                                <span class="login-label"><?= $block->escapeHtml(__('Not Registered User?')) ?></span>
+                                 <a class="secondary-link" href="<?php echo $block->getUrl('customer/account/create/') ?>" title="<?php echo __('Sign up') ?>"><?php echo __('Sign up') ?></a> 
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+      <div id="tab-2" class="login-with-emial tab-content-section" style="margin-top: 2px";>
+      <div class="signUpIcon">&nbsp;</div>
+         <form class="form form-otp-login" id="otpLoginForm" data-mage-init='{"validation":{}}'>
+            <fieldset class="fieldset otp-login">
+               <!-- <div class="field mobile required">-->
+               <div class="field email required">
+                    <div class="controls">
+                        <div class="mobileField">
+                            <div class="loginSpriteRow" style="height: 50px;vertical-align: bottom;padding: 15px 8px !important;border-right: 1px solid #fcd7c9;">
+                            <span class="countryCode"><i class="fa fa-phone" aria-hidden="true">+91</i></span>                            </div>
+                            </div>
+                            <div class="countryCodeRow">
+                            <!--<span class="countryCode"><i class="fa fa-phone" aria-hidden="true">+91</i></span>                            </div>-->
+                            <input name="mobile_no" id="mobile_no" type="tel" placeholder="Mobile Numbers*" maxlength="10" class="input-text customPhoneNumberValidationMethod"  title="<?= $block->escapeHtmlAttr(__('Numbers')) ?>" data-validate="{required:true, 'validate-number':true}" maxlength='10'>
+                        </div>
+                    </div>
+                    </div>
+               <!-- </div>-->
+                <div class="mobileOTP">
+                    <div id="otp_password" style="display: none">
+                        <input type="text" id="post_otp" name="post_otp" placeholder="Enter OTP"/>
+                    </div>
+                    <div id="resend_otp" class="primary" style="display: none; margin-top: 3px;" >
+                            <button type="button" class="resendOTPBtn" onclick="sendOtp(this)">Resend</button>
+                    </div>
+                </div>
+                <span class="resendMsg" style="display: none">OTP resent sucessfully </span>
+                <p id="login_error_message" style="display: none; margin-top: 2px; color: #e02b27;"></p>
+                <div class="button-container">
+                    <div id="send_otp" class="primary">
+                        <button type="button" onclick="sendOtp(this)">Send OTP</button>
+                    </div>
+                    <div id="mobile_login" style="display:block; 
+    margin-top: 13px;">
+                        <button type="button" class="mobileLogin" onclick="mobileLogin(this)"><span>Login</span></button>
+                    </div>
+                    <div class="secondory-link">
+                        <a class="forgot-link" href="<?php echo $block->getUrl('customer/account/forgotpassword') ?>" title="<?php echo __('Forgot Password') ?>"><?php echo __('Forgot Password') ?></a>
+                             <div class="not-register-user-link">
+                                <span class="login-label"><?= $block->escapeHtml(__('Not Registered User?')) ?></span>
+                                 <a class="secondary-link" href="<?php echo $block->getUrl('customer/account/create/') ?>" title="<?php echo __('Sign up') ?>"><?php echo __('Sign up') ?></a> 
+                             </div>
+                    </div>
+               </div>
+            </fieldset>            
+         </form>
+       </div>
+    </div>    
+    </div>
+</div>
+<script>
+require(['jquery'], function ($) {
+        $(".otp-login").click(function() {  $("#tab-1").hide(); $("#tab-2").show();});
+        $(".email-login").click(function() {  $("#tab-1").show();  $("#tab-2").hide(); $(this).addClass("email-login active-tab");$(".otp-login").removeClass("otp-login active-tab");});
+        $(".otp-login").click(function() {  $(this).addClass("otp-login active-tab");$(".email-login").removeClass("email-login active-tab"); });
+
+    });
+    function sendOtp() {
+       require(['jquery'], function ($) {
+           if($('#otpLoginForm').valid()){
+            var mobileNo = $('#mobile_no').val();
+        //    console.log(mobileNo);
+	    var formKey = jQuery.mage.cookies.get('form_key');
+           $.ajax({
+               url: '<?php echo $this->getUrl('customer_changes/account/sendotp') ?>',
+               method: 'POST',
+               data: {
+                   mobile_no: mobileNo,
+		   form_key :formKey
+               },
+               success: function (data) {
+                   $('#send_otp').hide();
+                   $('#resend_otp').show();
+                   $('#mobile_login').show();
+                   $('#otp_password').show();
+               var error = jQuery('.message-error').html();  
+		   setTimeout(function(){ 
+			var error = jQuery('.message-error').html();
+			jQuery('.mobileOTP').show();
+		    if(error !=null){
+			var errMsg = error.replace(/<[^>]*>?/gm, '');
+			if(errMsg.trim() == 'You are not registered with us. Please sign up'){
+			jQuery('.mobileOTP').hide();
+			jQuery('.mobileLogin').prop('disabled', true);
+			}
+		    } }, 1000);	
+               }
+           });
+           }
+           else{
+               console.log('this not valid');
+           }
+       })
+    }
+    function mobileLogin() {
+        require(['jquery'], function ($) {
+            var mobileNo = $('#mobile_no').val();
+            var postOtp = $('#post_otp').val();
+            var item = '<?php echo $items;?>';
+            // console.log(mobileNo);
+	    var formKey = jQuery.mage.cookies.get('form_key');
+            $.ajax({
+                url: '<?php echo $this->getUrl('customer_changes/account/mobilelogin') ?>',
+                method: 'POST',
+                data: {
+                    mobile_no: mobileNo,
+                    post_otp: postOtp,
+		    form_key :formKey
+                },
+                success: function (data) {
+                    var message = data.msg;
+                    var code = data.code;
+                    if (code === 200) {
+                        window.location.replace('<?php echo $this->getUrl('customer/account/?lg=otp') ?>');
+                      }
+                     else {
+                        $('#login_error_message').show();
+                        $('#login_error_message').empty();
+                        $('.resendMsg').hide();
+                        $('#login_error_message').append(message);
+                    }
+                }
+            });
+        })
+    }
+</script>
+<style>
+
+* {
+  box-sizing: border-box;
+}
+/* Create two equal columns that floats next to each other */
+.column2 {
+  float: right;
+  width: 50%;
+  padding: 10px;
+  
+   /* Should be removed. Only for demonstration */
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear:both;
+}
+
+</style>

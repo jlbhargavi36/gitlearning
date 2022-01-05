@@ -1,0 +1,140 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$helper = $objectManager->get('Aceturtle\Rubicon\Helper\Data');
+?>
+<?php
+//Get current product Id
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$id = $product->getId(); 
+
+//Get controller url
+$url = $this->getUrl('Rubicon');
+?>
+
+
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+<div class="qunatity-available"></div>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= $block->escapeHtml(__('Quantity')) ?></span></label>
+            <div class="control">
+               <?php /*<input type="number"
+                       name="qty"
+                       id="qty"
+                       min="0"
+                       value="<?= $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       />   */ ?>
+                 <div class="select-ui">
+                    <select class="qty-drop qty" name="qty" id="qty" required>
+                        <option value="<?= $block->getProductDefaultQty() * 1 ?>" selected="">1</option>
+                        <?php for ($i= $block->getProductDefaultQty() * 1; $i <= 10 ; $i++) { ?>
+                          <option value="<?php echo $i; ?>">
+                            <?php echo $i; ?>
+                          </option>
+                        <?php } ?>
+                    </select>
+                  </div>
+            </div>
+        </div>
+        <div class="list-unstyled availability-msg"><span><?= /* @escapeNotVerified */ __('Please select your size and quantity to continue')?></span></div>
+        <?php endif; ?>
+        <div class="actions">
+            <div class="mobile-fixed-btn">
+              <button type="submit"
+                      title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                      class="action primary tocart"
+                      id="product-addtocart-button" disabled>
+                  <span><?= $block->escapeHtml($buttonTitle) ?></span>
+              </button>
+               <div id="fix-soical" class="fix-soical"></div>
+            </div>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>   
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+ 
+
+<iframe src="https://click.onatrack.in/p?o=13140990&m=3376&t=f&event=Addtocart" width="0px" height="0px"></iframe>
+<!-- Pincode Checker -->
+<div class="pincode-check">
+	<div id="pincode-avail"></div>
+    <div class="pincode-field">
+        <input type="text" pattern="[0-9]{6}"  maxlength="6" id="pincode" name="pincode" placeholder="<?php echo __('Check Delivery Pincode'); ?>"/>
+        <input type="button" title="<?php echo __('Check Delivery Pincode'); ?>" id="pincode-check" class="action primary" value="<?php echo __('Check'); ?>" />
+
+    </div>
+	
+</div>
+
+
+
+<script type="text/javascript">
+require(['jquery', 'Magento_Ui/js/modal/modal'], function ($, modal) {
+
+ 
+
+     $(document).on('click','#pincode-check', function(){
+          var pincode = $('#pincode').val();
+          if(pincode == "")
+          {
+            alert("Please Enter Pincode");
+            return false;
+          }
+          $.ajax({
+            url: '<?php echo $url ?>',
+            async:false,
+            showLoader: true,
+            data: {pincode:pincode},
+            success: function(result){
+		console.log(result);
+                $('#pincode-avail').html(result);
+            }
+        });
+    });
+
+    $('#pincode').keypress(function(e){
+        if(e.which == 13){
+            e.preventDefault();
+            $('#pincode-check').click();
+        }
+    });
+});
+</script>
+
+<!-- Pincode Checker -->
+ 
+
+
+
+
+
+
+
+
+
+

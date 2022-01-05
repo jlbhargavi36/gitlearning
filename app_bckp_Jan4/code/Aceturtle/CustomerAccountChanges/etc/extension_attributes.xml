@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="mobile_no" type="string"/>
+        <attribute code="anniversary_date" type="date"/>
+        <attribute code="custom_dob" type="date"/>
+    </extension_attributes>
+</config>

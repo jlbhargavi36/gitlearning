@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+	<tab id="emp_tab" translate="label" sortOrder="200">
+            <label>Employee Discount</label>
+        </tab>
+	<section id="rubicon_order_api" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+	<label>Employee Discount Configuration</label>
+            <tab>rubicon_tab</tab>
+            <resource>Aceturtle_Employeediscount::config_rubicon</resource>
+	
+	 <group id="emp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Gernral Option</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+		<field id="empdiscount" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Set Employee Discount limit</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                </field>
+		
+         </group>
+
+	</section>
+    </system>
+</config>

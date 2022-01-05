@@ -1,0 +1,14 @@
+{
+    "shipping_method_inventory": {
+        "column": {
+            "row_id": true,
+            "updated_at": true,
+            "sku": true,
+            "delivery_type": true,
+            "available_qty": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

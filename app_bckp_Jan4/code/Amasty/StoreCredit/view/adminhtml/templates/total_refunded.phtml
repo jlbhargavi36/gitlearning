@@ -1,0 +1,13 @@
+<?php
+/**
+ * @var \Amasty\StoreCredit\Block\Adminhtml\Total $block
+ */
+?>
+<?php if ($block->getStoreCredit()): ?>
+    <tr>
+        <td class="label"><strong><?= $block->escapeHtml(__($block->getLabel())); ?></strong></td>
+        <td>
+            <?= $block->getFormatStoreCredit(); ?>
+        </td>
+    </tr>
+<?php endif; ?>

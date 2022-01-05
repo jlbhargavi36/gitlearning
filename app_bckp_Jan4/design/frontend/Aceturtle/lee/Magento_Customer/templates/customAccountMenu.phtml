@@ -1,0 +1,87 @@
+<div class = "customDashboardMenu">
+    <div class="menu"> 
+    <a class="link-card" href="<?php echo $this->getUrl('sales/order/history'); ?>">
+        <div class="link-content">
+            <span class="spriteAll order"> &nbsp; </span>
+                <span class="menuName"> Order </span>
+        </div>
+    </a>
+    </div>   
+    <div class="menu"> 
+    <a class="link-card" href="<?php echo $this->getUrl('wishlist'); ?>">
+        <div class="link-content">
+            <span class="spriteAll wishlist"> &nbsp; </span>
+            <span class="menuName">Wishlist </span>
+        </div>
+    </a>
+    </div>
+    <div class="menu"> 
+    <a class="link-card" href="<?php echo $this->getUrl('customer/address'); ?>">
+        <div class="link-content">
+            <span class="spriteAll addresses"> &nbsp; </span>
+            <span class="menuName"> Addresses </span>
+        </div>
+    </a>
+    </div>
+    <div class="menu"> 
+    <a class="link-card" href="<?php echo $this->getUrl('customer/account/edit'); ?>">
+        <div class="link-content">
+            <span class="spriteAll profile"> &nbsp; </span>
+            <span class="menuName"> Profile </span>
+        </div>
+    </a>
+    </div>
+    <div class="menu"> 
+    <a class="link-card" href="<?php echo $this->getUrl('Rubicon/index/cancelorderhistory/'); ?>">
+        <div class="link-content">
+            <span class="spriteAll cancel"> &nbsp; </span>
+            <span class="menuName"> Cancel </span>
+        </div>
+    </a>
+    </div>
+    <div class="menu"> 
+    <a class="link-card" href="<?php echo $this->getUrl('Rubicon/index/changepassword/'); ?>">
+        <div class="link-content">
+            <span class="spriteAll changePwd"> &nbsp; </span>
+            <span class="menuName">Change Password</span>
+        </div>
+    </a>
+    </div>
+</div>
+
+<!-- logout -->
+<div class="customDashboardLogoutBtn"> 
+    <a class="logoutButton" href="<?php echo $this->getUrl('customer/account/logout'); ?>">Logout</a>
+</div>
+<?php 
+if (isset($_GET['lg'])) {
+    $login = $_GET['lg'];
+}
+else{
+    $login = Null;
+}
+?>
+<script>
+<?php 
+if ($login !=  ''){?>
+require(['jquery', 'jquery/ui'], function($){ 
+   // alert(document.referrer);
+   var moblogin = '<?php echo $login?>';
+    var lasurl = '<?php echo  $this->getUrl().'customer/account/login/'?>';
+    if(moblogin == 'otp/'){
+        if(document.referrer == lasurl){
+         history.go(-1);
+    }
+    }
+});
+
+<?php }
+else { /* ?>
+require(['jquery', 'jquery/ui'], function($){
+    var lasurl = '<?php echo  $this->getUrl().'customer/account/login/'?>';
+        if(document.referrer == lasurl){
+         history.go(-2);
+    }
+});
+<?php */ }?>
+</script>

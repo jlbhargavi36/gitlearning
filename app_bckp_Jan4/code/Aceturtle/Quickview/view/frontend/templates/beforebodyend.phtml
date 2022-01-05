@@ -1,0 +1,17 @@
+<?php $product = $block->getProduct(); ?>
+<?php 
+    $helper = $block->getHelper();
+    $removeReview = $helper->getRemoveReview();
+    $removeMoreInfo = $helper->getRemoveMoreInfo();
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Aceturtle_Quickview/js/aceturtle_beforebodyend": {
+                "removeReview": "<?php echo $removeReview; ?>",
+                "removeMoreInfo": "<?php echo $removeMoreInfo; ?>"
+            }
+        }
+    }
+</script>

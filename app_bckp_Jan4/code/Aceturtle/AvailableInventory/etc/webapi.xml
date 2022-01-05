@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/available_inventory" method="POST">
+        <service class="Aceturtle\AvailableInventory\Api\InventoryInterface" method="updateInventory"/>
+        <resources>
+            <resource ref="Magento_Catalog::products"/>
+        </resources>
+    </route>
+    <route url="/V1/available_inventory/get/:sku" method="GET">
+        <service class="Aceturtle\AvailableInventory\Api\InventoryInterface" method="getInventory"/>
+        <resources>
+            <resource ref="Magento_Catalog::products"/>
+        </resources>
+    </route>
+</routes>

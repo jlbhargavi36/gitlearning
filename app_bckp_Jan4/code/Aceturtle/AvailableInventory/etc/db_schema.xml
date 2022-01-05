@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="shipping_method_inventory" resource="default" engine="innodb" comment="Row Id">
+        <column xsi:type="int" name="row_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Row ID"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="64" comment="Sku"/>
+        <column xsi:type="varchar" name="delivery_type" nullable="false" length="20" comment="Delivery type"/>
+        <column xsi:type="int" name="available_qty" nullable="false" comment="Available qty"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="row_id"/>
+        </constraint>
+    </table>
+</schema>
